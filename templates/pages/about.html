@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% include 'components/navbar.html' %}
+
+        <div class="about-container-header">
+            <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774614/Renaissance/pexels-laker-5792656_tjhyqs.jpg" alt="Renaissance Website Image">
+            <div class="about-container-header-content">
+                <div class="about-container-header-content-span reveal__top">
+                    <span>Home</span>
+                    <span class="material-symbols-outlined">chevron_right</span>
+                    <span>About Us</span>
+                </div>
+                <h2 class="reveal__bottom">Your Gateway to <span class="color-scheme reveal__text">Extraordinary Travel</span> Experiences.</h2>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <div class="about-section-header">
+                <h2 class="reveal__left">Begin Your <span class="color-scheme reveal__text">New Life</span> Experience With Exploring <span class="color-scheme reveal__text">New Destination</span></h2>
+                <div class="about-section-header-detail reveal__right">
+                    <span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</span>
+
+                    <span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</span>
+                </div>
+            </div>
+
+            <div class="about-grid-image-arangement-slim">
+                <img class="reveal__interval__bottom" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716749985/Renaissance/4755_p1pfwr.jpg" alt="Renaissance Website Image">
+                <img class="reveal__interval__bottom" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716749986/Renaissance/1006_zbksfz.jpg" alt="Renaissance Website Image">
+                <img class="reveal__interval__bottom" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716737785/Renaissance/african-people-colorful-illustration-africa-day-concept-ai-generated_103740-2514_lhpvac.avif" alt="Renaissance Website Image">
+            </div>
+        </div>
+
+        <div class="about-extra">
+            <div class="about-extra-fixed">
+                <h2 class="reveal__left">The Most <span class="color-scheme reveal__text">Favorite Destination</span> in Africa</h2>
+                <p class="reveal__right">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+                <a href="{{ url_for('destination') }}" class="black-general-button-container reveal__interval__bottom">
+                    <label>VIEW MORE DESTINATION</label>
+                    <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+                </a>
+            </div>
+
+            <div class="about-extra-fixed">
+                <div class="about-extra-container">
+                    <img class="about-extra-container-image reveal__interval__bottom" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774618/Renaissance/pexels-timmossholder-16065844_ovqg7z.jpg" alt="Renaissance Website Image">
+                    <div>Lagos, Nigeria</div>
+                </div>
+
+                <div class="about-extra-container">
+                    <img class="about-extra-container-image reveal__interval__bottom" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774294/Renaissance/pexels-paul-hoekman-3222424-9992569_xid47a.jpg" alt="Renaissance Website Image">
+                    <div>Lagos, Nigeria</div>
+                </div>
+
+                <div class="about-extra-container">
+                    <img class="about-extra-container-image reveal__interval__bottom" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774299/Renaissance/pexels-nextvoyage-4061019_fnrpxt.jpg" alt="Renaissance Website Image">
+                    <div>Lagos, Nigeria</div>
+                </div>
+
+                <div class="about-extra-container">
+                    <img class="about-extra-container-image reveal__interval__bottom" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774304/Renaissance/pexels-antonytrivet-12968734_fzwptd.jpg" alt="Renaissance Website Image">
+                    <div>Lagos, Nigeria</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-banner">
+            <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716749986/Renaissance/1006_zbksfz.jpg" alt="Renaissance Website Image">
+            <div class="footer-banner-content">
+                <h3>Get Closer With Us & Get Special Promo</h3>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
+                <a href="{{ url_for('contact') }}" class="button-container">
+                    <span>CONTACT US</span>
+                    <img class="button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+                </a>
+            </div>
+        </div>
+    
+    {% include 'components/footer.html' %}
+{% endblock %}

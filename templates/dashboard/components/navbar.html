@@ -1,0 +1,47 @@
+<div class="sidebar">
+	<div class="top-sidebar">
+		<a href="{{ url_for ('index') }}">
+			<span class="dashboard-text">Home</span>
+			<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914039/Renaissance/Equal_Housing_Opportunity_ymfmfa.png" alt="Renaissance Website Image">
+		</a>
+
+		<a href=" {{ url_for ('history') }} ">
+			<span class="dashboard-text">History</span>
+			<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914048/Renaissance/Activity_History_o1yd7k.png" alt="Renaissance Website Image">
+		</a>
+
+		<a href="{{ url_for ('dashboard') }}">
+			<span class="dashboard-text">Dashboard</span>
+			<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914059/Renaissance/Dashboard_Layout_ecshr2.png" alt="Renaissance Website Image">
+		</a>
+
+		<a href="{{ url_for('dashboard_destination') }}">
+			<span class="dashboard-text">Destinations</span>
+			<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914069/Renaissance/Navigation_ajw3nn.png" alt="Renaissance Website Image">
+		</a>
+
+		{% if current_user.id == 1 %}
+			<a href="{{ url_for ('create_destination') }}">
+				<span class="dashboard-text">Create Blog Post</span>
+				<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1717153063/Renaissance/Edit_gexktj.png" alt="Renaissance Website Image">
+			</a>
+
+			<a href="{{ url_for ('create_destination') }}">
+				<span class="dashboard-text">Create Destinations</span>
+				<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995820/Renaissance/Plus_am7or9.png" alt="Renaissance Website Image">
+			</a>
+		{% endif %}
+	</div>
+
+	<div class="bottom-sidebar">
+		<a href="{{ url_for ('update', id=current_user.id, name=current_user.email) }}">
+			<span class="dashboard-text">Account Settings</span>
+			<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914080/Renaissance/Gear_xj1wht.png" alt="Renaissance Website Image">
+		</a>
+
+		<a href="{{ url_for('logout') }}">
+			<span class="dashboard-text">Logout</span>
+			<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914108/Renaissance/Logout_Rounded_Left_z0emfy.png" alt="Renaissance Website Image">
+		</a>
+	</div>
+</div>

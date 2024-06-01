@@ -1,0 +1,26 @@
+{% for message in get_flashed_messages() %}
+    <div class="notification-popup">
+        <div class="notification-popup-container">
+            <div class="notification-image-container">
+                <img class="notification-background-image" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716737785/Renaissance/african-people-colorful-illustration-africa-day-concept-ai-generated_103740-2514_lhpvac.avif" alt="Renaissance Website Image">
+
+                <div class="notification-content">
+                    <div class="notification-content-flex">
+                        <h2>Notification</h2>
+                        <div class="popup-notification-close">
+                            <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1717002480/Renaissance/Close_Window_s2goh7.png" alt="Renaissance Website Image">
+                        </div>
+                    </div>
+
+                    <p>{{ message }}</p>
+                    {% if message == "This user already has an account with us. Please try logging in instead." %}
+                        <a href="{{ url_for ('login') }}" class="button-container">
+                            <span>GOTO LOGIN</span>
+                            <img class="button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

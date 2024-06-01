@@ -1,0 +1,119 @@
+<div class="main-container">
+	<div class="user-form-grid">
+		<div class="user-form-header">
+			<h2>Account Settings</h2>
+			<!--<p>Update your name, email address and other personal details. Keeping this information current helps us provide you with the best possible service.</p>-->
+		</div>
+
+		<form action="/update-user-information/{{ name_to_update.id }}" method="POST" enctype="multipart/form-data">
+			{{ form.hidden_tag() }}
+				<div class="user-form-grid-input">
+					<span>Last Name</span>
+					<input type="text" name="last_name"
+					{% if name_to_update.last_name %}
+						value="{{ name_to_update.last_name }}"
+					{% else %}
+						placeholder="Your last name here..." 
+					{% endif %}
+					>
+				</div>
+
+				<div class="user-form-grid-input">
+					<span>First Name</span>
+					<input type="text" name="first_name"
+					{% if name_to_update.contact_info %}
+						value="{{ name_to_update.first_name }}"
+					{% else %}
+						placeholder="Your first name here..." 
+					{% endif %}
+					>
+				</div>
+
+				<div class="user-form-grid-input">
+					<span>Middle Name</span>
+					<input type="text" name="middle_name"
+					{% if name_to_update.contact_info %}
+						value="{{ name_to_update.middle_name }}"
+					{% else %}
+						placeholder="Your middle name here..." 
+					{% endif %}
+					>
+				</div>
+
+				<div class="user-form-grid-input">
+					<span>Email</span>
+					<input type="text" name="email" value="{{ name_to_update.email }}">
+				</div>
+
+				<div class="user-form-grid-input">
+				    <span>Phone Details</span>
+				    <input type="tel" name="contact_info"
+				    {% if name_to_update.contact_info %}
+				        value="{{ name_to_update.contact_info }}"
+				    {% else %}
+				        placeholder="Contact information here i.e +1234567890" 
+				    {% endif %}
+				    >
+				</div>
+
+				<div class="user-form-grid-input">
+					<span>Facebook URL (Optional)</span>
+					<input type="text" name="facebook_account"
+					{% if name_to_update.facebook_account %}
+						value="{{ name_to_update.facebook_account }}"
+					{% else %}
+						placeholder="Enter your facebook account URL" 
+					{% endif %}
+					>
+				</div>
+
+				<div class="user-form-grid-input">
+					<span>Twitter URL (Optional)</span>
+					<input type="text" name="twitter_account" 
+					{% if name_to_update.twitter_account %}
+						value="{{ name_to_update.twitter_account }}"
+					{% else %}
+						placeholder="Enter your Twitter Handle URL" 
+					{% endif %}
+					>
+				</div>
+
+				<div class="user-form-grid-input">
+					<span>Instagram (Optional)</span>
+					<input type="text" name="instagram_account"
+					{% if name_to_update.instagram_account %}
+						value="{{ name_to_update.instagram_account }}"
+					{% else %}
+						placeholder="Enter your Instagram Handle URL" 
+					{% endif %}
+					>
+				</div>
+
+				<div class="user-form-grid-input">
+					<span>Location</span>
+					<input type="text" name="location"
+					{% if name_to_update.location %}
+						value="{{ name_to_update.location }}"
+					{% else %}
+						placeholder="Enter your location details here..." 
+					{% endif %}
+					>
+				</div>
+
+				<div class="user-form-grid-input">
+					<span>Upload Profile Image</span>
+					<input type="file" name="profile_pic">
+				</div>
+
+				<button class="form-footer-button" type="submit" name="submit">
+					<span>UPDATE ACCOUNT DETAILS</span>
+					<img class="form-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+				</button>
+
+				<a href="{{ url_for ('delete', id=current_user.id, name=current_user.email) }}" class="form-footer-button-colored">
+					<span>DELETE ACCOUNT</span>
+					<img class="button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1717071219/Renaissance/Delete_qfdqle.png" alt="Renaissance Website Image">
+				</a>
+		</form>
+	</div>
+</div>

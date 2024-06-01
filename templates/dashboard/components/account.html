@@ -1,0 +1,35 @@
+<div class="account-bar">
+	<div class="account-bar-box">
+		<div class="account-content-text">
+			<h2>User Account</h2>
+		</div>
+		
+		<div class="account-bar-box-container">
+			{% if current_user.profile_pic %}
+				<img class="user-account-image" src="https://res.cloudinary.com/renaissance-images/image/upload/{{ current_user.profile_pic }}" alt="Renaissance Website Image">
+			{% else %}
+				<img class="user-account-image" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716996659/Renaissance/user_placeholder_image_w789tb_hfrja7.jpg" alt="Renaissance Website Image">
+				<a class="link-image" href=""><img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995814/Renaissance/Add_Image_1_kbdqz0.png" alt="Renaissance Website Image"></a>
+			{% endif %}
+		</div>
+
+		<div class="account-content-text">
+			<p>Here you can manage your personal information.</p>
+			<div class="account-content-text-split">
+				<h5>Email Address:</h5>
+				<p>{{ current_user.email }}</p>
+			</div>
+			<div class="account-content-text-split">
+				<h5>Contact Info:</h5>
+				<p>{{ current_user.contact_info }}</p>
+			</div>
+		</div>
+
+		<div class="account-bar-box-container-footer">
+			<a href="">
+				<img class="footer-schedule-button" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995884/Renaissance/Planner_u4gwez.png" alt="Renaissance Website Image">
+				<span>Schedule a meeting</span>
+			</a>
+		</div>
+	</div>
+</div>

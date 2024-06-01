@@ -1,0 +1,42 @@
+<div class="form-container">
+	<img class="login-form-image" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716561876/Renaissance/12545_mzpwbj.jpg" alt="Renaissance Website Image">
+
+	<div class="form-container-background">
+		<form method="POST">
+			{{ form.hidden_tag() }}
+			<div class="login-form-header">
+				<h2>Welcome Back!</h2>
+				<p>We are delighted to see you again. Your continued trust and support mean the world to us.</p>
+			</div>
+
+			<div class="login-input-box">
+				<label>EMAIL</label>
+				<input type="text" name="email" placeholder="Your Email Address">
+			</div>
+
+			<div class="login-input-box">
+				<label>PASSWORD</label>
+				<input type="password" name="password" placeholder="********************">
+			</div>
+			<div class="login-form-footer">
+				<div class="login-form-footer-remember-me">
+					<input type="checkbox" name="" required>
+					<span>Remember me</span>
+				</div>
+				<a href=" {{ url_for ('add_user') }} ">Create an account</a>
+			</div>
+			
+			<div class="login-footer-btn-flex">
+				<button class="form-button-container button" type="submit" name="submit">
+					<span>LOGIN ACCOUNT</span>
+					<img class="form-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+				</button>
+				&nbsp;&nbsp;&nbsp;
+				<a href="{{ url_for('google_login') }}" class="form-button-container button">
+					<span>CONTINUE WITH GOOGLE</span>
+					<img class="button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716814043/Renaissance/Google_dtacz8.png" alt="Renaissance Website Image">
+				</a>
+			</div>
+		</form>
+	</div>
+</div>

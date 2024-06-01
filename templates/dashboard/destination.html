@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'components/notification.html' %}
+<div class="dashboard-container">
+	{% include 'dashboard/components/navbar.html' %}
+	{% include 'dashboard/components/destination.html' %}
+	{% include 'dashboard/components/account.html' %}
+</div>
+{% endblock %}

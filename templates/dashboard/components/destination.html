@@ -1,0 +1,36 @@
+<div class="main-container">
+	<div class="dashboard-filter-section">
+		<div class="dashboard-destination-list">			
+			<!--Destination Box Start-->
+			{% for destination in destinations %}
+				<div class="destination-list-box">
+					<img src="https://res.cloudinary.com/renaissance-images/image/upload/{{ destination.file }}" alt="Renaissance Website Image">
+
+					<a href="" class="overlay-url">
+						<span class="span-text-btn">LEARN MORE</span>
+						&nbsp;&nbsp;
+					</a>
+
+					<div class="destination-list-box-content">
+						<div class="destination-list-box-content-details">
+							<h4>{{ destination.title }}</h4>
+							<div class="destination-list-box-content-details-icon">
+								<span class="material-symbols-outlined">location_on</span>
+								<span class="destination-text">South Africa</span>
+							</div>
+						</div>
+
+						<!--<div class="destination-list-box-content-details-paragraph">
+							<p>Start From</p>
+							<div class="destination-list-box-content-details-icon-span">
+								<span class="material-symbols-outlined">attach_money</span>
+								<span class="destination-price" >30</span>
+							</div>
+						</div>-->
+					</div>
+				</div>
+			{% endfor %}
+			<!--Destination Box End-->
+		</div>
+	</div>
+</div>

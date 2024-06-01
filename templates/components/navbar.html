@@ -1,0 +1,242 @@
+
+	{% if 'about-renaissance/travels-and-tourism' in request.url_rule.rule %}
+		<header>
+			<nav>
+				<div class="logo">
+					<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716552296/Renaissance/Artboard_10_xyfbru.jpg" alt="Renaissance Website Image">
+				</div>
+				
+				<div class="navbar-container">
+		            <ul>
+						<li><a href="{{ url_for ('index') }}">HOME</a></li>
+						<li><a class="active" href="{{ url_for('about') }}">ABOUT US</a></li>
+						<li><a href="{{ url_for ('destination') }}">DESTINATION</a></li>
+						<li><a href="{{ url_for('contact') }}">CONTACT US</a></li>
+						<li><a href="{{ url_for('posts') }}">BLOG</a></li>
+					</ul>
+				</div>
+
+				<div class="toggle-menu">
+					<div class="menu-button"><span class="material-symbols-outlined">drag_handle</span></div>
+					<div class="toggle-menu-transparent">
+						<div class="toggle-main-menu">
+							<div class="toggle-main-menu-close"><span class="material-symbols-outlined">close</span></div>
+
+							<div class="toggle-menu-content">
+								<h2>Renaissance <span>.</span></h2>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua.</p>
+
+								<div class="toggle-flex-detail">
+									<h3>Our Contact</h3>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									<div class="toggle-flex">
+										<span>(+822) 2344 5678 1291</span>
+										<span>renaissance@mail.com</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="toggle-footer-socials">
+								<a href=""><i class="bx bxl-facebook" ></i></a>
+								<a href=""><i class="bx bxl-twitter" ></i></a>
+								<a href=""><i class="bx bxl-instagram" ></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+	{% elif 'renaissance-destination/secure-travels' in request.url_rule.rule %}
+		<header>
+			<nav>
+				<div class="logo">
+					<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716552296/Renaissance/Artboard_10_xyfbru.jpg" alt="Renaissance Website Image">
+				</div>
+				
+				<div class="navbar-container">
+		            <ul>
+						<li><a href="{{ url_for ('index') }}">HOME</a></li>
+						<li><a href="{{ url_for('about') }}">ABOUT US</a></li>
+						<li><a class="active" href="{{ url_for ('destination') }}">DESTINATION</a></li>
+						<li><a href="{{ url_for('contact') }}">CONTACT US</a></li>
+						<li><a href="{{ url_for('posts') }}">BLOG</a></li>
+					</ul>
+				</div>
+
+				<div class="toggle-menu">
+					<div class="menu-button"><span class="material-symbols-outlined">drag_handle</span></div>
+					<div class="toggle-menu-transparent">
+						<div class="toggle-main-menu">
+							<div class="toggle-main-menu-close"><span class="material-symbols-outlined">close</span></div>
+
+							<div class="toggle-menu-content">
+								<h2>Renaissance <span>.</span></h2>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua.</p>
+
+								<div class="toggle-flex-detail">
+									<h3>Our Contact</h3>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									<div class="toggle-flex">
+										<span>(+822) 2344 5678 1291</span>
+										<span>renaissance@mail.com</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="toggle-footer-socials">
+								<a href=""><i class="bx bxl-facebook" ></i></a>
+								<a href=""><i class="bx bxl-twitter" ></i></a>
+								<a href=""><i class="bx bxl-instagram" ></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+	{% elif 'renaissance/secure-travels/contact-us' in request.url_rule.rule %}
+		<header>
+			<nav>
+				<div class="logo">
+					<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716552296/Renaissance/Artboard_10_xyfbru.jpg" alt="Renaissance Website Image">
+				</div>
+				
+				<div class="navbar-container">
+		            <ul>
+						<li><a href="{{ url_for ('index') }}">HOME</a></li>
+						<li><a href="{{ url_for('about') }}">ABOUT US</a></li>
+						<li><a href="{{ url_for ('destination') }}">DESTINATION</a></li>
+						<li><a class="active" href="{{ url_for('contact') }}">CONTACT US</a></li>
+						<li><a href="{{ url_for('posts') }}">BLOG</a></li>
+					</ul>
+				</div>
+
+				<div class="toggle-menu">
+					<div class="menu-button"><span class="material-symbols-outlined">drag_handle</span></div>
+					<div class="toggle-menu-transparent">
+						<div class="toggle-main-menu">
+							<div class="toggle-main-menu-close"><span class="material-symbols-outlined">close</span></div>
+
+							<div class="toggle-menu-content">
+								<h2>Renaissance <span>.</span></h2>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua.</p>
+
+								<div class="toggle-flex-detail">
+									<h3>Our Contact</h3>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									<div class="toggle-flex">
+										<span>(+822) 2344 5678 1291</span>
+										<span>renaissance@mail.com</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="toggle-footer-socials">
+								<a href=""><i class="bx bxl-facebook" ></i></a>
+								<a href=""><i class="bx bxl-twitter" ></i></a>
+								<a href=""><i class="bx bxl-instagram" ></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+	{% elif 'renaissance/travel-blog/tourism-articles' in request.url_rule.rule %}
+		<header>
+			<nav>
+				<div class="logo">
+					<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716552296/Renaissance/Artboard_10_xyfbru.jpg" alt="Renaissance Website Image">
+				</div>
+				
+				<div class="navbar-container">
+		            <ul>
+						<li><a href="{{ url_for ('index') }}">HOME</a></li>
+						<li><a href="{{ url_for('about') }}">ABOUT US</a></li>
+						<li><a href="{{ url_for ('destination') }}">DESTINATION</a></li>
+						<li><a href="{{ url_for('contact') }}">CONTACT US</a></li>
+						<li><a class="active" href="{{ url_for('posts') }}">BLOG</a></li>
+					</ul>
+				</div>
+
+				<div class="toggle-menu">
+					<div class="menu-button"><span class="material-symbols-outlined">drag_handle</span></div>
+					<div class="toggle-menu-transparent">
+						<div class="toggle-main-menu">
+							<div class="toggle-main-menu-close"><span class="material-symbols-outlined">close</span></div>
+
+							<div class="toggle-menu-content">
+								<h2>Renaissance <span>.</span></h2>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua.</p>
+
+								<div class="toggle-flex-detail">
+									<h3>Our Contact</h3>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									<div class="toggle-flex">
+										<span>(+822) 2344 5678 1291</span>
+										<span>renaissance@mail.com</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="toggle-footer-socials">
+								<a href=""><i class="bx bxl-facebook" ></i></a>
+								<a href=""><i class="bx bxl-twitter" ></i></a>
+								<a href=""><i class="bx bxl-instagram" ></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+	{% else %}
+		<header>
+			<nav>
+				<div class="logo">
+					<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716552296/Renaissance/Artboard_10_xyfbru.jpg" alt="Renaissance Website Image">
+				</div>
+				
+				<div class="navbar-container">
+		            <ul>
+						<li><a class="active" href="{{ url_for ('index') }}">HOME</a></li>
+						<li><a href="{{ url_for('about') }}">ABOUT US</a></li>
+						<li><a href="{{ url_for ('destination') }}">DESTINATION</a></li>
+						<li><a href="{{ url_for('contact') }}">CONTACT US</a></li>
+						<li><a href="{{ url_for('posts') }}">BLOG</a></li>
+					</ul>
+				</div>
+
+				<div class="toggle-menu">
+					<div class="menu-button"><span class="material-symbols-outlined">drag_handle</span></div>
+					<div class="toggle-menu-transparent">
+						<div class="toggle-main-menu">
+							<div class="toggle-main-menu-close"><span class="material-symbols-outlined">close</span></div>
+
+							<div class="toggle-menu-content">
+								<h2>Renaissance <span>.</span></h2>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua.</p>
+
+								<div class="toggle-flex-detail">
+									<h3>Our Contact</h3>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									<div class="toggle-flex">
+										<span>(+822) 2344 5678 1291</span>
+										<span>renaissance@mail.com</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="toggle-footer-socials">
+								<a href=""><i class="bx bxl-facebook" ></i></a>
+								<a href=""><i class="bx bxl-twitter" ></i></a>
+								<a href=""><i class="bx bxl-instagram" ></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+	{% endif %}

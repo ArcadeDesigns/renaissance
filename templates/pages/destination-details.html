@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% include 'components/navbar.html' %}
+    {% include 'components/notification.html' %}
+    {% include 'components/popup.html' %}
+        <div class="about-container-header">
+            <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716749986/Renaissance/1006_zbksfz.jpg" alt="Renaissance Website Image">
+            <div class="about-container-header-content">
+                <div class="about-container-header-content-span reveal__top">
+                    <span>Home</span>
+                    <span class="material-symbols-outlined">chevron_right</span>
+                    <span>Destination Details</span>
+                </div>
+                <h2 class="reveal__bottom">Lagos City Night,<br> <span class="color-scheme reveal__text">Nigeria.</span></h2>
+                <p class="reveal__right">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+        </div>
+
+        <div class="detination-details-content-header">
+            <h2>Renaissance <span class="color-scheme reveal__text">Tours Africa</span></h2>
+            <p>Embark on Unforgettable Journeys Through Africa's Hidden Treasures</p>
+        </div>
+
+        <div class="detination-details-content">
+            <div class="detination-details-content-image">
+                <img class="content-imgs" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1717234377/Renaissance/breaking-boundaries-with-wildlife-revolutionary-approach_987764-5847_ysdlce.jpg" alt="Renaissance Website Image">
+                <div class="tourism-pricing">
+                    <span class="material-symbols-outlined">attach_money</span>
+                    <span class="tourism-pricing-text">2500</span>
+                </div>
+            </div>
+
+            <div class="detination-details-content-details">
+                <h2>Lagos City Night</h2>
+                <span>Nigeria</span>
+                
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <a href="#" class="black-general-button-container reveal__right">
+                    <label>BOOK A SPACE</label>
+                    <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+                </a>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-section-header">
+                <h2 class="reveal__left">Check Out <span class="color-scheme reveal__text">The Best Travel Choice</span> in Africa</h4>
+                <span class="secondary-text reveal__right">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</span>
+            </div>
+
+            <div class="destination-list">
+                <!--Destination Box Start-->
+                    <div class="destination-list-box">
+                        <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774304/Renaissance/pexels-antonytrivet-12968734_fzwptd.jpg" alt="Renaissance Website Image">
+                        
+                        <a href="{{ url_for('destination_details') }}" class="overlay-url">
+                            <span class="span-text-btn">LEARN MORE</span>
+                            &nbsp;&nbsp;
+                        </a>
+                        
+                        <div class="destination-list-box-content">
+                            <div class="destination-list-box-content-details">
+                                <h4>Cape Town</h4>
+                                <div class="destination-list-box-content-details-icon">
+                                    <span class="material-symbols-outlined">location_on</span>
+                                    <span class="destination-text">South Africa</span>
+                                </div>
+                            </div>
+
+                            <!--<div class="destination-list-box-content-details-paragraph">
+                                <p>Start From</p>
+                                <div class="destination-list-box-content-details-icon-span">
+                                    <span class="material-symbols-outlined">attach_money</span>
+                                    <span class="destination-price" >30</span>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                <!--Destination Box End-->
+
+                <!--Destination Box Start-->
+                    <div class="destination-list-box">
+                        <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774304/Renaissance/pexels-antonytrivet-12968734_fzwptd.jpg" alt="Renaissance Website Image">
+                        
+                        <a href="{{ url_for('destination_details') }}" class="overlay-url">
+                            <span class="span-text-btn">LEARN MORE</span>
+                            &nbsp;&nbsp;
+                        </a>
+                        
+                        <div class="destination-list-box-content">
+                            <div class="destination-list-box-content-details">
+                                <h4>Cape Town</h4>
+                                <div class="destination-list-box-content-details-icon">
+                                    <span class="material-symbols-outlined">location_on</span>
+                                    <span class="destination-text">South Africa</span>
+                                </div>
+                            </div>
+
+                            <!--<div class="destination-list-box-content-details-paragraph">
+                                <p>Start From</p>
+                                <div class="destination-list-box-content-details-icon-span">
+                                    <span class="material-symbols-outlined">attach_money</span>
+                                    <span class="destination-price" >30</span>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                <!--Destination Box End-->
+
+                <!--Destination Box Start-->
+                    <div class="destination-list-box">
+                        <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774304/Renaissance/pexels-antonytrivet-12968734_fzwptd.jpg" alt="Renaissance Website Image">
+                        
+                        <a href="{{ url_for('destination_details') }}" class="overlay-url">
+                            <span class="span-text-btn">LEARN MORE</span>
+                            &nbsp;&nbsp;
+                        </a>
+                        
+                        <div class="destination-list-box-content">
+                            <div class="destination-list-box-content-details">
+                                <h4>Cape Town</h4>
+                                <div class="destination-list-box-content-details-icon">
+                                    <span class="material-symbols-outlined">location_on</span>
+                                    <span class="destination-text">South Africa</span>
+                                </div>
+                            </div>
+
+                            <!--<div class="destination-list-box-content-details-paragraph">
+                                <p>Start From</p>
+                                <div class="destination-list-box-content-details-icon-span">
+                                    <span class="material-symbols-outlined">attach_money</span>
+                                    <span class="destination-price" >30</span>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                <!--Destination Box End-->
+
+                <!--Destination Box Start-->
+                    <div class="destination-list-box">
+                        <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774304/Renaissance/pexels-antonytrivet-12968734_fzwptd.jpg" alt="Renaissance Website Image">
+                        
+                        <a href="{{ url_for('destination_details') }}" class="overlay-url">
+                            <span class="span-text-btn">LEARN MORE</span>
+                            &nbsp;&nbsp;
+                        </a>
+                        
+                        <div class="destination-list-box-content">
+                            <div class="destination-list-box-content-details">
+                                <h4>Cape Town</h4>
+                                <div class="destination-list-box-content-details-icon">
+                                    <span class="material-symbols-outlined">location_on</span>
+                                    <span class="destination-text">South Africa</span>
+                                </div>
+                            </div>
+
+                            <!--<div class="destination-list-box-content-details-paragraph">
+                                <p>Start From</p>
+                                <div class="destination-list-box-content-details-icon-span">
+                                    <span class="material-symbols-outlined">attach_money</span>
+                                    <span class="destination-price" >30</span>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                <!--Destination Box End-->
+            </div>
+        </div>
+
+
+    {% include 'components/footer.html' %}
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% include 'components/navbar.html' %}
+
+        <div class="about-container-header">
+            <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716749986/Renaissance/1006_zbksfz.jpg" alt="Renaissance Website Image">
+            <div class="about-container-header-content">
+                <div class="about-container-header-content-span reveal__top">
+                    <span>Home</span>
+                    <span class="material-symbols-outlined">chevron_right</span>
+                    <span>Contact Us</span>
+                </div>
+                <h2 class="reveal__bottom">Contact Us & <br> <span class="color-scheme reveal__text">Get Special</span> Promo</h2>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <div class="contact-section-header">
+                <h2><span class="color-scheme reveal__text">Get Closer</span> With Us</h2>
+                <span class="secondary-text reveal__right">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</span>
+            </div>
+
+            <form class="reveal__bottom">
+                <div class="input-box-container">
+                    <span>COMMENTS/QUESTIONS</span>
+                    <textarea placeholder="Your Message Here"></textarea>
+                </div>
+
+                <div class="input-box-container-flex">
+                    <div class="input-box-container">
+                        <span>NAME</span>
+                        <input type="" name="" placeholder="Your Name">
+                    </div>
+                    &nbsp;&nbsp;
+                    <div class="input-box-container">
+                        <span>EMAIL ADDRESS</span>
+                        <input type="" name="" Your Email Address>
+                    </div>
+                </div>
+
+                <button class="button-container button" type="submit" name="submit">
+                    <span>SEND MESSAGE</span>
+                    <img class="button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+                </button>
+            </form>
+        </div>
+    
+    {% include 'components/footer.html' %}
+{% endblock %}

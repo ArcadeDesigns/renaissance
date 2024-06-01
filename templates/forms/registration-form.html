@@ -1,0 +1,39 @@
+<div class="form-container">
+	<img class="login-form-image" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774304/Renaissance/pexels-antonytrivet-12968734_fzwptd.jpg" alt="Renaissance Website Image">
+
+	<div class="form-container-background">
+		<form method="POST">
+			{{ form.hidden_tag() }}
+				<div class="login-form-header">
+					<h2>Create An Account</h2>
+					<p>Take a step further to explore Africa</p>
+				</div>
+
+				<div class="login-input-box">
+					<label>EMAIL</label>
+					<input type="text" name="email" placeholder="Your Email Address" required>
+				</div>
+
+				<div class="login-input-box">
+					<label>PASSWORD</label>
+					<input type="password" name="password_hash" placeholder="********************" required>
+				</div>
+
+				<div class="login-input-box">
+					<label>COMFIRM PASSWORD</label>
+					<input type="password" name="password_hash2" placeholder="********************" required>
+				</div>
+
+				<div class="login-form-footer">
+					<a href=" {{ url_for ('login') }} ">Already own an account? Login instead</a>
+				</div>
+				
+				<div class="login-footer-btn-flex">
+					<button class="form-button-container button" type="submit" name="submit">
+						<span>CREATE ACCOUNT</span>
+						<img class="form-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+					</button>
+				</div>
+		</form>
+	</div>
+</div>

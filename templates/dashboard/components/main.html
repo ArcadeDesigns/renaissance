@@ -1,0 +1,74 @@
+<div class="main-container">
+
+	<!-- Main Container Section -->
+		<div class="main-content">
+			{% if current_user.first_name %}
+
+				<div class="main-banner-flex">
+					<div class="main-banner">
+						<span>Renaissance Tours Africa</span>
+
+						<h1>Hi, {{ current_user.last_name }} {{ current_user.first_name }} <br> What we recommend for you.</h1>
+
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+						<a href="" class="button-container reveal__right">
+							<span>LEARN MORE</span>
+							<img class="button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+						</a>
+					</div>
+
+					<div class="main-content-image">
+						<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716749986/Renaissance/1006_zbksfz.jpg" alt="Renaissance Website Image">
+					</div>
+				</div>
+
+			{% else %}
+
+				<div class="main-banner-flex">
+					<div class="main-banner">
+						<span>Renaissance Tours Africa</span>
+						<h1>Dear User,</h1>
+						<p>We kindly request you to update your contact information by clicking the button below.</p>
+						
+						<a href="{{ url_for ('update', id=current_user.id, name=current_user.email) }}" class="button-container reveal__right">
+							<span>UPDATE PROFILE</span>
+							<img class="button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+						</a>
+					</div>
+				</div>
+
+			{% endif %}
+
+			<div class="history-table">
+				<div class="history-table-grid">
+					<div>S/N</div>
+					<div>Destination</div>
+					<div>Status</div>
+					<div>Amount</div>
+				</div>
+
+				<div class="history-table-grid history-table-list">
+					<div>1.</div>
+					<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+					<div class="pending">Pending.</div>
+					<div>#54,000</div>
+				</div>
+
+				<div class="history-table-grid history-table-list">
+					<div>2.</div>
+					<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+					<div class="paid">Paid.</div>
+					<div>#34,000</div>
+				</div>
+
+				<div class="history-table-grid history-table-list">
+					<div>3.</div>
+					<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+					<div class="failed">Failed.</div>
+					<div>#40,000</div>
+				</div>
+			</div>
+		</div>
+	<!-- Main Container Section -->
+</div>
