@@ -2,10 +2,15 @@
 	<div class="content-management-form">
 		<form action="" method="POST" enctype="multipart/form-data">
 			{{ form.hidden_tag() }}
+				<div class="content-form-grid-input">
+					<span class="content-span-text">Destination</span>
+					<input type="text" name="title" placeholder="Topic..." required>
+				</div>
+
 				<div class="content-form-flex-box">
 					<div class="content-form-grid-input">
-						<span class="content-span-text">Destination</span>
-						<input type="text" name="title" placeholder="Topic..." required>
+						<span class="content-span-text">Destination Cost</span>
+						<input type="number" name="cost" placeholder="Destination Cost..." required>
 					</div>
 
 					<div class="content-form-grid-input">

@@ -8,6 +8,7 @@ from flask_wtf.file import FileField
 class DestinationForm(FlaskForm):
     title = StringField(validators=[DataRequired()])
     location = StringField(validators=[DataRequired()])
+    cost = StringField(validators=[DataRequired()])
     content = CKEditorField(validators=[DataRequired()])
     file = FileField()
     alt = StringField(validators=[DataRequired()])

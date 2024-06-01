@@ -13,6 +13,7 @@ class Destinations(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(), nullable=False)
     location = db.Column(db.String(), nullable=False)
+    cost = db.Column(db.String(), nullable=False)
     content = db.Column(db.Text, nullable=False)
     file = db.Column(db.String(), nullable=False)
     alt = db.Column(db.String(), nullable=False)

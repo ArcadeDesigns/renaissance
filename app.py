@@ -27,8 +27,8 @@ from cloudinary.utils import cloudinary_url
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///renaissance.db'
-#app.config['SQLALCHEMY_DATABASE_URI'] = '...'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///renaissance.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://renaissance_db_user:FFxRe3eeEDNNB2vQZ1s6X74MR8Pi6Ssy@dpg-cpdhdg5ds78s73eii6r0-a.oregon-postgres.render.com/renaissance_db'
 app.config['SECRET_KEY'] = "cairocoders-ednalan"
 app.config['FLASK_DEBUG'] = True
 
@@ -56,9 +56,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-CLIENT_ID = '461094641840-d58k852pvu1o6k18o3n98peo0av8vlce.apps.googleusercontent.com'
-CLIENT_SECRET = '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'
-REDIRECT_URI = '.../renaissance/auth/google-callback'
+CLIENT_ID = '461094641840-aih2rmv5147gvlut443vtlia7nfga50l.apps.googleusercontent.com'
+CLIENT_SECRET = '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'
+REDIRECT_URI = 'https://renaissance-nlmh.onrender.com/renaissance/auth/google-callback'
 
 # Google Authentication
 GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/auth'
@@ -104,10 +104,8 @@ def google_callback():
             if user:
                 login_user(user)
                 flash("Login Successful!", 'success')
-                if user.id == 1:
-                    return redirect(url_for('admin'))
-                else:
-                    return redirect(url_for('properties'))
+                return redirect(url_for('dashboard'))
+                
             else:
                 hashed_pw = generate_password_hash('your_random_password', "sha256")
                 user = Users(name=profile_data['name'], username=profile_data['email'], email=profile_data['email'], password_hash=hashed_pw)
@@ -121,10 +119,7 @@ def google_callback():
 @app.route('/continue/with/google')
 def google_login():
     if current_user.is_authenticated:
-        if current_user.id == 1:
-            return redirect(url_for('admin'))
-        else:
-            return redirect(url_for('properties'))
+        return redirect(url_for('dashboard'))
 
     params = {
         'client_id': CLIENT_ID,
@@ -529,6 +524,7 @@ def create_destination():
         destination = Destinations(
             title=form.title.data,
             location=form.location.data,
+            cost=form.cost.data,
             content=form.content.data,
             file=form.file.data,
             alt=form.alt.data,
@@ -565,6 +561,7 @@ def create_destination():
 
         form.title.data = ''
         form.location.data = ''
+        form.cost.data = ''
         form.content.data = ''
         form.file.data = ''
         form.alt.data = ''
