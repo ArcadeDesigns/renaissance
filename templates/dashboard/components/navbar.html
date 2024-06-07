@@ -50,3 +50,18 @@
 		</a>
 	</div>
 </div>
+
+<div class="dashboard-responsiveness-nav-view">
+	<div class="dashboard-responsiveness-nav-view-content">
+		<ul>
+			<div class="close-dashboard-responsiveness-nav-view"><img src="https://res.cloudinary.com/renaissance-images/image/upload/v1717697589/renaissance-images/Cancel_zgnfwt.png" alt="Renaissance Website Image"></div>
+
+			<li><a href="{{ url_for('index') }}">HOME</a></li>
+			<li><a href="{{ url_for('history') }}">HISTORY</a></li>
+			<li><a href="{{ url_for('dashboard') }}">DASHBOARD</a></li>
+			<li><a href="{{ url_for ('update', id=current_user.id, name=current_user.email) }}">ACCOUNT SETTINGS</a></li>
+			<li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
+			<!--<li><a href="">CREATE AN ACCOUNT</a></li>-->
+		</ul>
+	</div>
+</div>

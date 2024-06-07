@@ -350,7 +350,7 @@ def post(id):
 
 @app.route('/renaissance/dashboard/auth/user/account', methods=['GET', 'POST'])
 def dashboard():
-    historys = Historys.query.order_by(Historys.id.desc())
+    historys = Historys.query.order_by(Historys.id)
     our_users = Users.query.order_by(Users.date_added.desc()).all
     return render_template('dashboard/dashboard.html',
         title_tag="",

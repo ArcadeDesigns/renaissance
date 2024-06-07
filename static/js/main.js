@@ -33,3 +33,19 @@ function TitleCount() {
       });
     });
 }
+
+function OpendashboardResponsivenessMenu() {
+      const dashboardResponsivenessMenuButton = document.querySelector('.open-dashboard-responsiveness-nav-view');
+      const dashboardResponsivenessMenu = document.querySelector('.dashboard-responsiveness-nav-view');
+      const dashboardResponsivenessCloseButton = document.querySelector('.close-dashboard-responsiveness-nav-view');
+  
+      // Add event listener to the menu button
+      dashboardResponsivenessMenuButton.addEventListener('click', () => {
+          dashboardResponsivenessMenu.classList.add('active');
+      });
+  
+      // Add event listener to the close button
+      dashboardResponsivenessCloseButton.addEventListener('click', () => {
+          dashboardResponsivenessMenu.classList.remove('active');
+      });
+  }
