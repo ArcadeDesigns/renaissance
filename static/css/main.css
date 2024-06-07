@@ -2080,9 +2080,24 @@ h1, h3, h4, h5, h6 {
     flex-direction: column;
   }
 
+  .form-container {
+    height: 100vh;
+  }
+
+  .form-container .login-form-image {
+    height: 100%; 
+  }
 }
 
 @media screen and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1.366) {
+  
+  .form-container {
+    height: 100vh;
+  }
+
+  .form-container .login-form-image {
+    height: 100%; 
+  }
   
   .contact-section-header .secondary-text {
     font-weight: 500;
