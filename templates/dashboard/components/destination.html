@@ -1,36 +1,22 @@
 <div class="main-container">
-	<div class="dashboard-filter-section">
-		<div class="dashboard-destination-list">			
-			<!--Destination Box Start-->
-			{% for destination in destinations %}
-				<div class="destination-list-box">
-					<img src="https://res.cloudinary.com/renaissance-images/image/upload/{{ destination.file }}" alt="Renaissance Website Image">
-
-					<a href="" class="overlay-url">
-						<span class="span-text-btn">LEARN MORE</span>
-						&nbsp;&nbsp;
-					</a>
-
-					<div class="destination-list-box-content">
-						<div class="destination-list-box-content-details">
-							<h4>{{ destination.title }}</h4>
-							<div class="destination-list-box-content-details-icon">
-								<span class="material-symbols-outlined">location_on</span>
-								<span class="destination-text">{{ destination.location }}</span>
-							</div>
-						</div>
-
-						<div class="destination-list-box-content-details-paragraph">
-							<p>Start From</p>
-							<div class="destination-list-box-content-details-icon-span">
-								<span class="material-symbols-outlined">attach_money</span>
-								<span class="destination-price" >{{ destination.cost }}</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			{% endfor %}
-			<!--Destination Box End-->
+	<div class="history-table">
+		<div class="history-table-grid">
+			<div>S/N</div>
+			<div>Destination</div>
+			<div>Date Posted</div>
+			<div>Action</div>
 		</div>
+		{% for destination in destinations %}
+			<div class="history-table-grid history-table-list">
+				<div>{{ destination.id }}</div>
+				<div>{{ destination.title }}</div>
+				<div class="paid">{{ destination.date_posted }}</div>
+				<div>
+					<a href="{{ url_for('edit_destination', id=destination.id, title=destination.title) }}"><img src="https://res.cloudinary.com/renaissance-images/image/upload/v1717764520/Edit_1_nrqpn5.png" alt="Renaissance Website Image"></a>
+					&nbsp;&nbsp;&nbsp;
+					<a href="{{ url_for('delete_destination', id=destination.id, title=destination.title) }}"><img src="https://res.cloudinary.com/renaissance-images/image/upload/v1717764541/Delete_1_tuxnyb.png" alt="Renaissance Website Image"></a>
+				</div>
+			</div>
+		{% endfor %}
 	</div>
 </div>

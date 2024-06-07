@@ -37,10 +37,11 @@
 				<li>
 					<a href="">Contact Us</a>
 				</li>
-
-				<li>
-					<a href=" {{ url_for ('login') }} ">Login Account</a>
-				</li>
+				{% if current_user.is_authenticated %}
+					<li><a href=" {{ url_for ('dashboard') }} ">Dashboard</a></li>
+				{% else %}
+					<li><a href=" {{ url_for ('login') }} ">Login Account</a></li>
+				{% endif %}
 			</div>
 		</div>
 

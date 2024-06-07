@@ -11,9 +11,8 @@
                     <span class="material-symbols-outlined">chevron_right</span>
                     <span>Destination Details</span>
                 </div>
-                <h2 class="reveal__bottom">Lagos City Night,<br> <span class="color-scheme reveal__text">Nigeria.</span></h2>
-                <p class="reveal__right">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.</p>
+                <h2 class="reveal__bottom">{{ destination.location }},<br> <span class="color-scheme reveal__text">{{ destination.country }}.</span></h2>
+                <p class="reveal__right">{{ destination.location }},<br>{{ destination.content[0:150] | safe }}</p>
             </div>
         </div>
 
@@ -24,35 +23,41 @@
 
         <div class="detination-details-content">
             <div class="detination-details-content-image">
-                <img class="content-imgs" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1717234377/Renaissance/breaking-boundaries-with-wildlife-revolutionary-approach_987764-5847_ysdlce.jpg" alt="Renaissance Website Image">
+                {% if destination.file %}
+                    <img class="content-imgs" src="https://res.cloudinary.com/renaissance-images/image/upload/{{ destination.file }}" alt="{{ destination.alt }}">
+                {% endif %}
                 <div class="tourism-pricing">
                     <span class="material-symbols-outlined">attach_money</span>
-                    <span class="tourism-pricing-text">2500</span>
+                    <span class="tourism-pricing-text">{{ destination.cost }}</span>
                 </div>
             </div>
 
             <div class="detination-details-content-details">
-                <h2>Lagos City Night</h2>
-                <span>Nigeria</span>
+                <h2>{{ destination.location }}</h2>
+                <span>{{ destination.country }}</span>
                 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>{{ destination.content | safe }}</p>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <a href="#" class="black-general-button-container reveal__right">
+                <!--<a href="#" class="black-general-button-container reveal__right">
                     <label>BOOK A SPACE</label>
                     <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
-                </a>
+                </a>-->
+
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <input type="hidden" name="name" value="{{ current_user.last_name }} {{ current_user.first_name }} {{ current_user.middle_name }}">
+                    <input type="hidden" name="email" value="{{ current_user.email }}">
+
+                    <!--Payment Information-->
+                    <input type="hidden" name="title" value="{{ destination.title }}">
+                    <input type="hidden" name="location" value="{{ destination.location }}">
+                    <input type="hidden" name="country" value="{{ destination.country }}">
+                    <input type="hidden" name="cost" value="{{ destination.cost }}">
+                    <button class="black-general-button-container button-extra reveal__right">
+                        <label>BOOK A SPACE</label>
+                        <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+                    </button>
+                </form>
             </div>
         </div>
 
@@ -63,21 +68,24 @@
             </div>
 
             <div class="destination-list">
+                {% for destination in destinations[0:4] %}
                 <!--Destination Box Start-->
                     <div class="destination-list-box">
-                        <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774304/Renaissance/pexels-antonytrivet-12968734_fzwptd.jpg" alt="Renaissance Website Image">
+                        {% if destination.file %}
+                            <img src="https://res.cloudinary.com/renaissance-images/image/upload/{{ destination.file }}" alt="{{ destination.alt }}">
+                        {% endif %}
                         
-                        <a href="{{ url_for('destination_details') }}" class="overlay-url">
+                        <a href="{{ url_for('destination_details', id=destination.id, name=destination.title) }}" class="overlay-url">
                             <span class="span-text-btn">LEARN MORE</span>
                             &nbsp;&nbsp;
                         </a>
                         
                         <div class="destination-list-box-content">
                             <div class="destination-list-box-content-details">
-                                <h4>Cape Town</h4>
+                                <h4>{{ destination.country }}</h4>
                                 <div class="destination-list-box-content-details-icon">
                                     <span class="material-symbols-outlined">location_on</span>
-                                    <span class="destination-text">South Africa</span>
+                                    <span class="destination-text">{{ destination.location }}</span>
                                 </div>
                             </div>
 
@@ -91,93 +99,7 @@
                         </div>
                     </div>
                 <!--Destination Box End-->
-
-                <!--Destination Box Start-->
-                    <div class="destination-list-box">
-                        <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774304/Renaissance/pexels-antonytrivet-12968734_fzwptd.jpg" alt="Renaissance Website Image">
-                        
-                        <a href="{{ url_for('destination_details') }}" class="overlay-url">
-                            <span class="span-text-btn">LEARN MORE</span>
-                            &nbsp;&nbsp;
-                        </a>
-                        
-                        <div class="destination-list-box-content">
-                            <div class="destination-list-box-content-details">
-                                <h4>Cape Town</h4>
-                                <div class="destination-list-box-content-details-icon">
-                                    <span class="material-symbols-outlined">location_on</span>
-                                    <span class="destination-text">South Africa</span>
-                                </div>
-                            </div>
-
-                            <!--<div class="destination-list-box-content-details-paragraph">
-                                <p>Start From</p>
-                                <div class="destination-list-box-content-details-icon-span">
-                                    <span class="material-symbols-outlined">attach_money</span>
-                                    <span class="destination-price" >30</span>
-                                </div>
-                            </div>-->
-                        </div>
-                    </div>
-                <!--Destination Box End-->
-
-                <!--Destination Box Start-->
-                    <div class="destination-list-box">
-                        <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774304/Renaissance/pexels-antonytrivet-12968734_fzwptd.jpg" alt="Renaissance Website Image">
-                        
-                        <a href="{{ url_for('destination_details') }}" class="overlay-url">
-                            <span class="span-text-btn">LEARN MORE</span>
-                            &nbsp;&nbsp;
-                        </a>
-                        
-                        <div class="destination-list-box-content">
-                            <div class="destination-list-box-content-details">
-                                <h4>Cape Town</h4>
-                                <div class="destination-list-box-content-details-icon">
-                                    <span class="material-symbols-outlined">location_on</span>
-                                    <span class="destination-text">South Africa</span>
-                                </div>
-                            </div>
-
-                            <!--<div class="destination-list-box-content-details-paragraph">
-                                <p>Start From</p>
-                                <div class="destination-list-box-content-details-icon-span">
-                                    <span class="material-symbols-outlined">attach_money</span>
-                                    <span class="destination-price" >30</span>
-                                </div>
-                            </div>-->
-                        </div>
-                    </div>
-                <!--Destination Box End-->
-
-                <!--Destination Box Start-->
-                    <div class="destination-list-box">
-                        <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774304/Renaissance/pexels-antonytrivet-12968734_fzwptd.jpg" alt="Renaissance Website Image">
-                        
-                        <a href="{{ url_for('destination_details') }}" class="overlay-url">
-                            <span class="span-text-btn">LEARN MORE</span>
-                            &nbsp;&nbsp;
-                        </a>
-                        
-                        <div class="destination-list-box-content">
-                            <div class="destination-list-box-content-details">
-                                <h4>Cape Town</h4>
-                                <div class="destination-list-box-content-details-icon">
-                                    <span class="material-symbols-outlined">location_on</span>
-                                    <span class="destination-text">South Africa</span>
-                                </div>
-                            </div>
-
-                            <!--<div class="destination-list-box-content-details-paragraph">
-                                <p>Start From</p>
-                                <div class="destination-list-box-content-details-icon-span">
-                                    <span class="material-symbols-outlined">attach_money</span>
-                                    <span class="destination-price" >30</span>
-                                </div>
-                            </div>-->
-                        </div>
-                    </div>
-                <!--Destination Box End-->
+                {% endfor %}
             </div>
         </div>
 

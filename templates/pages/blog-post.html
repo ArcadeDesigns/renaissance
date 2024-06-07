@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% include 'components/navbar.html' %}
+
+		<div class="about-container-header">
+			<img src="https://res.cloudinary.com/renaissance-images/image/upload/{{ blog.file }}" alt="{{ blog.alt }}">
+			<div class="about-container-header-content">
+				<div class="about-container-header-content-span reveal__top">
+					<span>Home</span>
+					<span class="material-symbols-outlined">chevron_right</span>
+					<span>Blog Post</span>
+				</div>
+				<h2 class="reveal__bottom">Your Gateway to <span class="color-scheme reveal__text">Extraordinary Travel</span> Experiences.</h2>
+			</div>
+		</div>
+
+		<div class="blog-post-content-container">
+			<div class="blog-post-content-header">
+				<h2>{{ blog.title }}</h2>
+				<span>Renaissance Tours Africa <div class="decor-liner"></div>{{ blog.formatted_time() }} | {{ blog.formatted_date_with_day() }}<div class="decor-liner"></div> in Blog</span>
+			</div>
+
+			<div class="blog-post-content-file">
+				<p>{{ blog.content | safe }}</p>
+			</div>
+		</div>
+	{% include 'components/footer.html' %}
+{% endblock %}

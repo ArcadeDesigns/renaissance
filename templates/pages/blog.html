@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     {% include 'components/navbar.html' %}
-
+    {% include 'components/notification.html' %}
         <div class="about-container-header">
             <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774299/Renaissance/pexels-nextvoyage-4061019_fnrpxt.jpg" alt="Renaissance Website Image">
             <div class="about-container-header-content">
@@ -16,107 +16,23 @@
 
         <div class="secondary-blog-section">
             <div class="secondary-blog-section-container">
+                {% for blog in blogs  %}
                 <!---------Blog Box Start--------->
                 <div class="secondary-blog-section-container-box">
-                    <img class="secondary-blog-section-image" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774294/Renaissance/pexels-paul-hoekman-3222424-9992569_xid47a.jpg" alt="Renaissance Website Image">
+                    <img class="secondary-blog-section-image" src="https://res.cloudinary.com/renaissance-images/image/upload/{{ blog.file }}" alt="{{ blog.alt }}">
 
                     <div class="secondary-blog-section-container-box-content">
-                        <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <h2>{{ blog.title }}</h2>
+                        <p>{{ blog.content[0:350] | safe }}</p>
                     </div>
 
-                    <a href="" class="black-general-button-container reveal__interval__bottom">
+                    <a href="{{ url_for('post', id=blog.id, title=blog.title) }}" class="black-general-button-container reveal__interval__bottom">
                         <label>READ MORE</label>
                         <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
                     </a>
                 </div>                
                 <!---------Blog Box End--------->
-
-                <!---------Blog Box Start--------->
-                <div class="secondary-blog-section-container-box">
-                    <img class="secondary-blog-section-image" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774294/Renaissance/pexels-paul-hoekman-3222424-9992569_xid47a.jpg" alt="Renaissance Website Image">
-
-                    <div class="secondary-blog-section-container-box-content">
-                        <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-
-                    <a href="" class="black-general-button-container reveal__interval__bottom">
-                        <label>READ MORE</label>
-                        <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
-                    </a>
-                </div>                
-                <!---------Blog Box End--------->
-
-                <!---------Blog Box Start--------->
-                <div class="secondary-blog-section-container-box">
-                    <img class="secondary-blog-section-image" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774294/Renaissance/pexels-paul-hoekman-3222424-9992569_xid47a.jpg" alt="Renaissance Website Image">
-
-                    <div class="secondary-blog-section-container-box-content">
-                        <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-
-                    <a href="" class="black-general-button-container reveal__interval__bottom">
-                        <label>READ MORE</label>
-                        <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
-                    </a>
-                </div>                
-                <!---------Blog Box End--------->
-
-                <!---------Blog Box Start--------->
-                <div class="secondary-blog-section-container-box">
-                    <img class="secondary-blog-section-image" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774294/Renaissance/pexels-paul-hoekman-3222424-9992569_xid47a.jpg" alt="Renaissance Website Image">
-
-                    <div class="secondary-blog-section-container-box-content">
-                        <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-
-                    <a href="" class="black-general-button-container reveal__interval__bottom">
-                        <label>READ MORE</label>
-                        <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
-                    </a>
-                </div>                
-                <!---------Blog Box End--------->
-
-                <!---------Blog Box Start--------->
-                <div class="secondary-blog-section-container-box">
-                    <img class="secondary-blog-section-image" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774294/Renaissance/pexels-paul-hoekman-3222424-9992569_xid47a.jpg" alt="Renaissance Website Image">
-
-                    <div class="secondary-blog-section-container-box-content">
-                        <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-
-                    <a href="" class="black-general-button-container reveal__interval__bottom">
-                        <label>READ MORE</label>
-                        <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
-                    </a>
-                </div>                
-                <!---------Blog Box End--------->
-
-                <!---------Blog Box Start--------->
-                <div class="secondary-blog-section-container-box">
-                    <img class="secondary-blog-section-image" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716774294/Renaissance/pexels-paul-hoekman-3222424-9992569_xid47a.jpg" alt="Renaissance Website Image">
-
-                    <div class="secondary-blog-section-container-box-content">
-                        <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-
-                    <a href="" class="black-general-button-container reveal__interval__bottom">
-                        <label>READ MORE</label>
-                        <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
-                    </a>
-                </div>                
-                <!---------Blog Box End--------->
+                {% endfor %}
             </div>
         </div>
 

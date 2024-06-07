@@ -20,3 +20,19 @@ function scrollShadow() {
           menu.classList.remove('active');
       });
   }
+
+  function OpenResponsiveMenu() {
+      const responsiveMenuButton = document.querySelector('.open-responsive-nav-view');
+      const responsiveMenu = document.querySelector('.responsive-nav-view');
+      const responsiveCloseButton = document.querySelector('.close-responsive-nav-view');
+  
+      // Add event listener to the menu button
+      responsiveMenuButton.addEventListener('click', () => {
+          responsiveMenu.classList.add('active');
+      });
+  
+      // Add event listener to the close button
+      responsiveCloseButton.addEventListener('click', () => {
+          responsiveMenu.classList.remove('active');
+      });
+  }

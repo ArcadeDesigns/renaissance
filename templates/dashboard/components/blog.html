@@ -1,0 +1,22 @@
+<div class="main-container">
+	<div class="history-table">
+		<div class="history-table-grid">
+			<div>S/N</div>
+			<div>Title</div>
+			<div>Date Posted</div>
+			<div>Action</div>
+		</div>
+		{% for blog in blogs %}
+			<div class="history-table-grid history-table-list">
+				<div>{{ blog.id }}</div>
+				<div>{{ blog.title }}</div>
+				<div class="paid">{{ blog.date_posted }}</div>
+				<div>
+					<a href="{{ url_for('edit_post', id=blog.id, title=blog.title) }}"><img src="https://res.cloudinary.com/renaissance-images/image/upload/v1717764520/Edit_1_nrqpn5.png" alt="Renaissance Website Image"></a>
+					&nbsp;&nbsp;&nbsp;
+					<a href="{{ url_for('delete_post', id=blog.id, title=blog.title) }}"><img src="https://res.cloudinary.com/renaissance-images/image/upload/v1717764541/Delete_1_tuxnyb.png" alt="Renaissance Website Image"></a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>

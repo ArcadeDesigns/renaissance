@@ -276,16 +276,16 @@
   overflow: hidden;
 }
 
-.secondary-blog-section-container-box-content p {
+.secondary-blog-section-container-box-content p,
+h1, h3, h4, h5, h6 {
   font-size: var(--span-text);
-  font-weight: 300;
+  font-weight: 500;
   color: var(--secondary-color);
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 
 .about-container-header {
   justify-content: center;
@@ -520,6 +520,7 @@
   font-weight: 400;
   color: var(--secondary-color);
   padding: 5px;
+  cursor: pointer;
 }
 
 .general-button-arrow {
@@ -543,6 +544,7 @@
   font-weight: 400;
   color: var(--primary-color);
   padding: 5px;
+  cursor: pointer;
 }
 
 .black-general-button-container span {
@@ -550,6 +552,7 @@
   font-weight: 400;
   color: var(--primary-color);
   padding: 5px;
+  cursor: pointer;
 }
 
 .black-general-button-arrow {
@@ -573,6 +576,7 @@
   font-weight: 400;
   color: var(--secondary-color);
   padding: 5px;
+  cursor: pointer;
 }
 
 .black-border-general-button-container span {
@@ -580,6 +584,7 @@
   font-weight: 400;
   color: var(--secondary-color);
   padding: 5px;
+  cursor: pointer;
 }
 
 .black-border-general-button-arrow {
@@ -608,6 +613,7 @@
   font-weight: 400;
   color: var(--secondary-color);
   padding: 5px;
+  cursor: pointer;
 }
 
 .form-button-arrow {
@@ -635,6 +641,7 @@
   font-weight: 400;
   color: var(--secondary-color);
   padding: 5px;
+  cursor: pointer;
 }
 
 .form-footer-button-colored {
@@ -657,6 +664,7 @@
   font-weight: 400;
   color: var(--primary-color);
   padding: 5px;
+  cursor: pointer;
 }
 
 .form-footer-button-image {
@@ -680,12 +688,19 @@
   font-weight: 400;
   color: var(--primary-color);
   padding: 5px;
+  cursor: pointer;
 }
 
 .subscription-button-arrow {
   width: 20px;
   height: auto;
   object-fit: scale-down;
+}
+
+.button-extra {
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 /**************************************************************/
@@ -1128,6 +1143,13 @@
   font-size: var(--span-text);
   font-weight: 500;
   grid-column: span 2;
+}
+
+.history-table-grid div:nth-child(4) a {
+  text-decoration: none;
+  background-color: var(--secondary-color);
+  border-radius: 50px;
+  padding: 5px;
 }
 
 .failed {
@@ -1875,8 +1897,8 @@
 
 .detination-details-content {
   justify-content: flex-start;
-  align-items: center;
-  margin: auto;
+  align-items: flex-start;
+  margin: 0 auto;
   width: 100%;
   height: auto;
   display: flex;
@@ -1887,15 +1909,16 @@
 .detination-details-content-image {
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin: 0 auto;
   width: 100%;
   height: 100%;
   overflow: hidden;
   border-radius: 10px;
   position: relative;
+  display: flex;
 }
 
-.detination-details-content-image .content-img {
+.detination-details-content-image .content-imgs {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1972,4 +1995,165 @@
 .tourism-pricing-text {
   font-size: var(--span-text);
   font-weight: 500;
+}
+
+.blog-post-content-container {
+  padding: 5%;
+}
+
+.blog-post-content-header {
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-bottom: 2%;
+}
+
+.blog-post-content-header h2 {
+  font-size: var(--medium-text);
+  font-weight: 500;
+  color: var(--secondary-color);
+  padding-bottom: 20px;
+  width: 80%;
+}
+
+.blog-post-content-header span {
+  font-size: var(--span-text);
+  font-weight: 500;
+  color: var(--secondary-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: auto;
+}
+
+.decor-liner {
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  display: flex;
+  margin: auto 5px;
+  padding: 1px;
+  width: 50px;
+  height: 1px;
+  background-color: var(--secondary-color);
+}
+
+.blog-post-content-file {
+  justify-content: center;
+  align-items: flex-start;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.blog-post-content-file p {
+  font-weight: 300;
+  font-size: var(--span-text);
+  color: var(--secondary-color);
+}
+
+.blog-post-content{
+  padding: 2%;
+  font-weight: 300;
+  font-size: var(--span-text);
+  color: var(--secondary-color);
+}
+
+@media screen and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 0.600) {
+
+  .contact-section-header .secondary-text {
+    font-weight: 500;
+  }
+
+  .contact-section-header h2 {
+    font-size: var(--medium-text);
+  }
+
+  .detination-details-content {
+    flex-direction: column;
+  }
+
+}
+
+@media screen and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1.366) {
+  
+  .contact-section-header .secondary-text {
+    font-weight: 500;
+  }
+
+  .contact-section-header h2 {
+    font-size: var(--medium-text);
+  }
+
+  .detination-details-content-image {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tourism-pricing {
+    top: 2%;
+    left: 1%;
+  }  
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) and (max-width: 768px) {
+
+  .filter-section-header {
+    width: 80%;
+  }
+
+  .contact-section-header {
+    flex-direction: column;
+  }
+
+  .input-box-container-flex {
+    flex-direction: column;
+  }
+
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) and (max-width: 540px) {
+  
+  .secondary-blog-section-container {
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-post-content-header span {
+    flex-direction: column;
+  }
+
+  .decor-liner {
+    margin: 5px 0;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) and (max-width: 430px) {
+  .blog-post-content-header h2 {
+    font-size: var(--small-text);
+    width: 100%;
+  }
+
+@media screen and (-webkit-min-device-pixel-ratio:0) and (max-width: 375px) {
+
+  .contact-section-header h2 {
+    font-size: var(--small-text);
+  }
+
 }

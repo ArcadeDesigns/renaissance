@@ -15,20 +15,25 @@
 			<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914059/Renaissance/Dashboard_Layout_ecshr2.png" alt="Renaissance Website Image">
 		</a>
 
-		<a href="{{ url_for('dashboard_destination') }}">
-			<span class="dashboard-text">Destinations</span>
-			<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914069/Renaissance/Navigation_ajw3nn.png" alt="Renaissance Website Image">
-		</a>
-
 		{% if current_user.id == 1 %}
-			<a href="{{ url_for ('create_destination') }}">
+			<a href="{{ url_for ('create_post') }}">
 				<span class="dashboard-text">Create Blog Post</span>
 				<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1717153063/Renaissance/Edit_gexktj.png" alt="Renaissance Website Image">
+			</a>
+
+			<a href="{{ url_for('dashboard_blog') }}">
+				<span class="dashboard-text">Blog Posts</span>
+				<img src="https://res.cloudinary.com/renaissance-images/image/upload/v1717764089/New_Topic_gwxubu.png" alt="Renaissance Website Image">
 			</a>
 
 			<a href="{{ url_for ('create_destination') }}">
 				<span class="dashboard-text">Create Destinations</span>
 				<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995820/Renaissance/Plus_am7or9.png" alt="Renaissance Website Image">
+			</a>
+
+			<a href="{{ url_for('dashboard_destination') }}">
+				<span class="dashboard-text">Destinations</span>
+				<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914069/Renaissance/Navigation_ajw3nn.png" alt="Renaissance Website Image">
 			</a>
 		{% endif %}
 	</div>

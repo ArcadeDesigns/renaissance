@@ -5,7 +5,7 @@ from flask_login import UserMixin
 class Historys(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     destination_name = db.Column(db.String(), nullable=False)
-    payment_status = db.Column(db.String(), nullable=False)
+    payment_status = db.Column(db.Boolean, default=False)
     amount = db.Column(db.Text, nullable=False)
     poster_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
@@ -13,6 +13,7 @@ class Destinations(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(), nullable=False)
     location = db.Column(db.String(), nullable=False)
+    country = db.Column(db.String(), nullable=True)
     cost = db.Column(db.String(), nullable=False)
     content = db.Column(db.Text, nullable=False)
     file = db.Column(db.String(), nullable=False)

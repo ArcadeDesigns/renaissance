@@ -18,6 +18,7 @@ from database import db
 import uuid as uuid
 import os
 import requests
+import logging
 
 # Cloudinary CDN Service
 import cloudinary
@@ -27,8 +28,8 @@ from cloudinary.utils import cloudinary_url
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///renaissance.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://renaissance_db_user:FFxRe3eeEDNNB2vQZ1s6X74MR8Pi6Ssy@dpg-cpdhdg5ds78s73eii6r0-a.oregon-postgres.render.com/renaissance_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///renaissance.db'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://renaissance_db_user:FFxRe3eeEDNNB2vQZ1s6X74MR8Pi6Ssy@dpg-cpdhdg5ds78s73eii6r0-a.oregon-postgres.render.com/renaissance_db'
 app.config['SECRET_KEY'] = "cairocoders-ednalan"
 app.config['FLASK_DEBUG'] = True
 
@@ -64,6 +65,9 @@ REDIRECT_URI = 'https://renaissance-nlmh.onrender.com/renaissance/auth/google-ca
 GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/auth'
 GOOGLE_TOKEN_URL = 'https://accounts.google.com/o/oauth2/token'
 GOOGLE_USERINFO_URL = 'https://www.googleapis.com/oauth2/v1/userinfo'
+
+# Paystack configuration
+PAYSTACK_SECRET_KEY = 'SK_TEST_49A761Ad2E3efdbcae223606ab466f0a6371db99'
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -284,10 +288,12 @@ def about():
 
 @app.route('/renaissance-destination/secure-travels', methods=['GET', 'POST'])
 def destination():
+    destinations = Destinations.query.order_by(Destinations.date_posted.desc())
     return render_template('pages/destination.html',
         title_tag="",
         meta_description="",
         keywords="",
+        destinations=destinations,
         url_link="https://www.renaissance.com/renaissance-destination/secure-travels",
         revised="20th of May 2024",
     )
@@ -304,12 +310,36 @@ def contact():
 
 @app.route('/renaissance/travel-blog/tourism-articles', methods=['GET', 'POST'])
 def posts():
+    blogs = Blogs.query.order_by(Blogs.date_posted.desc())
     return render_template('pages/blog.html',
         title_tag="",
         meta_description="",
         keywords="",
+        blogs=blogs,
         url_link="https://www.renaissance.com/renaissance/travel-blog/tourism-articles",
         revised="20th of May 2024",
+    )
+
+@app.route('/renaissance/travel-blog/tourism-articles/<int:id>', methods=['GET', 'POST'])
+def post(id):
+    blog = Blogs.query.get(id)
+    blogs = Blogs.query.order_by(Blogs.date_posted.desc())
+
+    title_tag = blog.title_tag
+    url_link = url_for('post', id=blog.id, _external=True)
+    keyword = blog.keyword
+    meta_description = blog.meta_description
+    revised = blog.formatted_date_with_day()
+
+    blogs = Blogs.query.order_by(Blogs.date_posted.desc())
+    return render_template('pages/blog-post.html',
+        title_tag=title_tag,
+        meta_description=meta_description,
+        keywords=keyword,
+        blog=blog,
+        blogs=blogs,
+        url_link=url_link,
+        revised=revised,
     )
 
 ##########################################################################################
@@ -320,6 +350,7 @@ def posts():
 
 @app.route('/renaissance/dashboard/auth/user/account', methods=['GET', 'POST'])
 def dashboard():
+    historys = Historys.query.order_by(Historys.id.desc())
     our_users = Users.query.order_by(Users.date_added.desc()).all
     return render_template('dashboard/dashboard.html',
         title_tag="",
@@ -327,12 +358,13 @@ def dashboard():
         keywords="",
         url_link="https://www.renaissance.com/renaissance/dashboard/auth/user/account",
         revised="20th of May 2024",
+        historys=historys,
         our_users=our_users,
     )
 
 @app.route('/renaissance/dashboard/auth/user/account/destination', methods=['GET', 'POST'])
 def dashboard_destination():
-    destinations = Destinations.query.order_by(Destinations.date_posted.desc())
+    destinations = Destinations.query.order_by(Destinations.date_posted)
     our_users = Users.query.order_by(Users.date_added.desc()).all
     return render_template('dashboard/destination.html',
         title_tag="",
@@ -344,19 +376,127 @@ def dashboard_destination():
         our_users=our_users,
     )
 
-@app.route('/renaissance/dashboard/auth/user/account/destination/details', methods=['GET', 'POST'])
-def destination_details():
-    destinations = Destinations.query.order_by(Destinations.date_posted.desc())
+@app.route('/renaissance/dashboard/auth/user/account/blogs', methods=['GET', 'POST'])
+def dashboard_blog():
+    blogs = Blogs.query.order_by(Blogs.date_posted)
     our_users = Users.query.order_by(Users.date_added.desc()).all
-    return render_template('pages/destination-details.html',
+    return render_template('dashboard/blog.html',
         title_tag="",
         meta_description="",
         keywords="",
+        blogs=blogs,
+        url_link="https://www.renaissance.com/renaissance/dashboard/auth/user/account/blogs",
+        revised="20th of May 2024",
+        our_users=our_users,
+    )
+
+@app.route('/renaissance/dashboard/auth/user/account/destination/details/<int:id>', methods=['GET', 'POST'])
+def destination_details(id):
+    form = PaymentForm()
+    if form.validate_on_submit():
+        client_name = request.form.get('name')
+        client_email = request.form.get('email')
+
+        # Payment Information
+        destination_name = request.form.get('title')
+        destination_location = request.form.get('location')
+        destination_country = request.form.get('country')
+        destination_cost = float(request.form.get('cost'))
+        paying = int(destination_cost * 100)
+
+        headers = {
+            "Authorization": f"Bearer {PAYSTACK_SECRET_KEY}",
+            "Content-Type": "application/json"
+        }
+
+        payload = {
+            "email": client_email,
+            "amount": paying,
+            "callback_url": url_for('payment_callback', _external=True),
+            "metadata": {
+                "destination_name": destination_name
+            }
+        }
+
+        try:
+            response = requests.post("https://api.paystack.co/transaction/initialize", headers=headers, json=payload)
+            response_data = response.json()
+            logging.info(f"Paystack response: {response_data}")
+
+            if response.status_code == 200 and response_data['status']:
+                authorization_url = response_data['data']['authorization_url']
+                return redirect(authorization_url)
+            else:
+                error_message = response_data.get('message', 'Unknown error')
+                logging.error(f"Failed to initiate payment: {error_message}")
+                flash(f"Failed to initiate payment: {error_message}", "danger")
+        except Exception as e:
+            logging.error(f"Exception during payment processing: {e}")
+            flash("An error occurred while processing your payment. Please contact admin.", "danger")
+
+    destination = Destinations.query.get(id)
+    destinations = Destinations.query.order_by(Destinations.date_posted.desc())
+    our_users = Users.query.order_by(Users.date_added.desc()).all()
+
+    title_tag = destination.title
+    url_link = url_for('destination', id=destination.id, _external=True)
+    keyword = destination.keyword
+    meta_description = destination.meta_description
+
+    return render_template('pages/destination-details.html',
+        title_tag=title_tag,
+        meta_description=meta_description,
+        keywords=keyword,
+        destination=destination,
         destinations=destinations,
         url_link="https://www.renaissance.com/renaissance/dashboard/auth/user/account/destination/details",
         revised="20th of May 2024",
         our_users=our_users,
+        form=form,
     )
+
+@app.route('/payment_callback')
+@login_required
+def payment_callback():
+    reference = request.args.get('reference')
+    
+    headers = {
+        "Authorization": f"Bearer {PAYSTACK_SECRET_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    response = requests.get(f"https://api.paystack.co/transaction/verify/{reference}", headers=headers)
+    
+    if response.status_code == 200:
+        response_data = response.json()
+        logging.info(f"Paystack verification response: {response_data}")
+        
+        if response_data['data']['status'] == 'success':
+            flash("Payment successful!", "success")
+            
+            metadata = response_data['data'].get('metadata')
+            if metadata and isinstance(metadata, dict):
+                destination_name = metadata.get('destination_name')
+                amount = response_data['data']['amount'] / 100
+            else:
+                logging.error("Invalid metadata format.")
+                flash("Payment verification failed due to invalid metadata format. Please contact admin.", "danger")
+                return redirect(url_for('destination'))
+
+            user = Users.query.filter_by(id=current_user.id).first()
+            history = Historys(
+                destination_name=destination_name,
+                payment_status=True,
+                amount=amount,
+                poster_id=current_user.id
+            )
+            db.session.add(history)
+            db.session.commit()
+        else:
+            flash("Payment failed. Please try again.", "danger")
+    else:
+        flash("Payment verification failed. Please try again.", "danger")    
+    return redirect(url_for('destination'))
 
 @app.route('/renaissance/dashboard/auth/user/history', methods=['GET', 'POST'])
 def history():
@@ -443,77 +583,63 @@ def create_post():
         revised="20th of May 2024",
     )
 
-@app.route('/renaissance/admin/auth/user/create-blog-post', methods=['GET', 'POST'])
-def edit_post():   
-    form = BlogForm() 
+@app.route('/renaissance/admin/auth/user/edit-blog-post/<int:id>', methods=['GET', 'POST'])
+def edit_post(id): 
+    blog = Blogs.query.get_or_404(id)
+    form = BlogForm(obj=blog) 
+
+    title_tag = blog.title_tag
+    meta_description = blog.meta_description
+    keyword = blog.keyword
+
     if form.validate_on_submit():
-        poster = current_user.id
-        blog = Blogs(
-            title=form.title.data,
-            content=form.content.data,
-            file=form.file.data,
-            alt=form.alt.data,
-            title_tag=form.title_tag.data,
-            url_link=form.url_link.data,
-            meta_description=form.meta_description.data,
-            keyword=form.keyword.data,
-            poster_id=poster,
-        )
+        blog.title = form.title.data
+        blog.content = form.content.data
+        blog.title_tag = form.title_tag.data
+        blog.url_link = form.url_link.data
+        blog.meta_description = form.meta_description.data
+        blog.keyword = form.keyword.data
+        db.session.commit()
 
-        if form.file.data:
-            blog.file = form.file.data
-            filename = secure_filename(blog.file.filename)
-            file_name = str(uuid.uuid1()) + "_" + filename
-            saver = form.file.data
-            blog.file = file_name
+        flash("Your blog post has been successfully updated!")
+        return redirect(url_for("posts"))
 
-            try:
-                upload_result = cloudinary.uploader.upload(
-                    saver, folder="renaissance-image-upload")
-                blog.file = upload_result['public_id']
-                db.session.add(blog)
-                db.session.commit()
-                saver.save(os.path.join(
-                    app.config['UPLOAD_FOLDER'], file_name))
-                flash("Blog post has been created successfully.")
-                return redirect(url_for("posts"))
-            except:
-                flash("An error occurred. Please try again.")
-                return render_template("publish.html", form=form)
-        else:
-            db.session.add(post)
-            db.session.commit()
-            send_subscription()
-            deduct_credits(poster)
-            flash("Post Successfully Added !")
-            return redirect(url_for("posts"))
-
-        form.title.data = ''
-        form.content.data = ''
-        form.slug.data = ''
-        form.file.data = ''
-        form.alt.data = ''
-        form.keyword.data = ''
-        form.title_tag.data = ''
-        form.url_link.data = ''
-        form.youtube_url.data = ''
-        form.meta_description.data = ''
-        form.category.data = ''
-        form.other_category.data = ''
-        total_score = ''
-        grade_reason = ''
-        grade_description = ''
-        improvement_suggestions = ''
-
-    return render_template('pages/create-blog.html',
-        title_tag="",
-        meta_description="",
-        keywords="",
+    return render_template('pages/edit-blog.html',
+        title_tag=title_tag,
+        meta_description=meta_description,
+        keywords=keyword,
         form=form,
-        url_link="https://www.renaissance.com/renaissance/renaissance/admin/auth/user/create-blog-post",
         revised="20th of May 2024",
     )
 
+@app.route('/blog-posts/delete/<int:id>')
+@login_required
+def delete_post(id):
+    post_to_delete = Blogs.query.get_or_404(id)
+    id = current_user.id
+    if id == post_to_delete.poster_id or id == 1:
+        try:
+            db.session.delete(post_to_delete)
+            db.session.commit()
+
+            # return message
+            flash("Blog post was deleted successfully!")
+
+            # Grab all the post from the DataBase
+            blogs = Blogs.query.order_by(Blogs.date_posted)
+            return redirect(url_for('posts', blogs=blogs))
+
+        except:
+            # return error message
+            flash("Whoops!!! there was a Problem deleting post try again...")
+            blogs = Blogs.query.order_by(Blogs.date_posted)
+            return redirect(url_for('dashboard_blog', blogs=blogs))
+    else:
+        # return message
+        flash("You are not authorized to Delete this Post!")
+        # Grab all the post from the DataBase
+        blogs = Blogs.query.order_by(Blogs.date_posted)
+        return redirect(url_for('posts', blogs=blogs))
 
 @app.route('/renaissance/admin/auth/user/create-a-new-destination', methods=['GET', 'POST'])
 @login_required
@@ -524,6 +650,7 @@ def create_destination():
         destination = Destinations(
             title=form.title.data,
             location=form.location.data,
+            country=form.country.data,
             cost=form.cost.data,
             content=form.content.data,
             file=form.file.data,
@@ -561,6 +688,7 @@ def create_destination():
 
         form.title.data = ''
         form.location.data = ''
+        form.country.data = ''
         form.cost.data = ''
         form.content.data = ''
         form.file.data = ''
@@ -578,6 +706,67 @@ def create_destination():
         url_link="https://www.renaissance.com/renaissance/admin/auth/user/create-a-new-destination",
         revised="20th of May 2024",
     )
+
+@app.route('/renaissance/admin/auth/user/edit-destination/<int:id>', methods=['GET', 'POST'])
+def edit_destination(id): 
+    destination = Destinations.query.get_or_404(id)
+    form = DestinationForm(obj=destination) 
+
+    title_tag = destination.title_tag
+    meta_description = destination.meta_description
+    keyword = destination.keyword
+
+    if form.validate_on_submit():
+        destination.title = form.title.data
+        destination.location = form.location.data
+        destination.country = form.country.data
+        destination.cost = form.cost.data
+        destination.content = form.content.data
+        destination.title_tag = form.title_tag.data
+        destination.url_link = form.url_link.data
+        destination.meta_description = form.meta_description.data
+        destination.keyword = form.keyword.data
+        db.session.commit()
+
+        flash("Your destination post has been successfully updated!")
+        return redirect(url_for("destination"))
+
+    return render_template('pages/edit-destination.html',
+        title_tag=title_tag,
+        meta_description=meta_description,
+        keywords=keyword,
+        form=form,
+        revised="20th of May 2024",
+    )
+
+@app.route('/destination-posts/delete/<int:id>')
+@login_required
+def delete_destination(id):
+    post_to_delete = Destinations.query.get_or_404(id)
+    id = current_user.id
+    if id == post_to_delete.poster_id or id == 1:
+        try:
+            db.session.delete(post_to_delete)
+            db.session.commit()
+
+            # return message
+            flash("Destination post was deleted successfully!")
+
+            # Grab all the post from the DataBase
+            destinations = Destinations.query.order_by(Destinations.date_posted)
+            return redirect(url_for('posts', destinations=destinations))
+
+        except:
+            # return error message
+            flash("Whoops!!! there was a Problem deleting post try again...")
+            destinations = Destinations.query.order_by(Destinations.date_posted)
+            return redirect(url_for('dashboard_destination', destinations=destinations))
+    else:
+        # return message
+        flash("You are not authorized to Delete this Post!")
+        # Grab all the post from the DataBase
+        destinations = Destinations.query.order_by(Destinations.date_posted)
+        return redirect(url_for('posts', destinations=destinations))
 
 ##########################################################################################
 ##########################################################################################

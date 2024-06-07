@@ -2,59 +2,128 @@
 	<div class="content-management-form">
 		<form action="" method="POST" enctype="multipart/form-data">
 			{{ form.hidden_tag() }}
+			<div class="content-form-flex-box">
 				<div class="content-form-grid-input">
 					<span class="content-span-text">Destination</span>
-					<input type="text" name="title" placeholder="Topic..." required>
+					<input type="text" name="title"
+						{% if form.title.data %}
+							value="{{ form.title.data }}"
+						{% else %}
+							placeholder="Destination Title..."
+						{% endif %}
+					required
+					>
 				</div>
+
+				<div class="content-form-grid-input">
+					<span class="content-span-text">Destination Cost</span>
+					<input type="number" name="cost"
+						{% if form.cost.data %}
+							value="{{ form.cost.data }}"
+						{% else %}
+							placeholder="Destination Cost..."
+						{% endif %}
+					required
+					>
+				</div>
+			</div>
 
 				<div class="content-form-flex-box">
 					<div class="content-form-grid-input">
-						<span class="content-span-text">Destination Cost</span>
-						<input type="number" name="cost" placeholder="Destination Cost..." required>
+						<span class="content-span-text">Country</span>
+						<input type="text" name="country" 
+							{% if form.country.data %}
+								value="{{ form.country.data }}"
+							{% else %}
+								placeholder="i.e Kenya..."
+							{% endif %}
+						required
+						>
 					</div>
 
 					<div class="content-form-grid-input">
 						<span class="content-span-text">Location</span>
-						<input type="text" name="location" placeholder="i.e Mombasa, Kenya" required>
+						<input type="text" name="location"
+							{% if form.location.data %}
+								value="{{ form.location.data }}"
+							{% else %}
+								placeholder="i.e Mombasa, Kenya"
+							{% endif %}
+						required
+						>
 					</div>
 				</div>
 
 				{{ form.content(class="form-control", rows="10") }}
 				
 				<div class="content-form-flex-box">
-					<div class="content-form-grid-input">
-						<span class="content-span-text">Destination Image</span>
-						<input type="file" name="file" required>
-					</div>
+
+					{% if 'renaissance/admin/auth/user/edit-destination' in request.url_rule.rule %}
+						
+					{% else %}
+						<div class="content-form-grid-input">
+							<span class="content-span-text">Upload Image</span>
+							<input type="file" name="file">
+						</div>
+
+						<div class="content-form-grid-input">
+							<span class="content-span-text">Alt Text</span>
+							<input type="text" name="alt" placeholder="Image alt text i.e Renaissance blog article image">
+						</div>
+					{% endif %}
 
 					<div class="content-form-grid-input">
-						<span class="content-span-text">Alt Text</span>
-						<input type="text" name="alt" placeholder="Image alt text i.e Renaissance blog article image">
-					</div>
-
-					<div class="content-form-grid-input">
-						<input type="text" name="title_tag" placeholder="Content Title Tag" maxlength="60" required>
+						<input type="text" name="title_tag" placeholder="Content Title Tag" maxlength="60"
+							{% if form.title_tag.data %}
+								value="{{ form.title_tag.data }}"
+							{% else %}
+								placeholder="Content Title Tag"
+							{% endif %}
+						required
+						>
 						<span class="counter">60&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 					</div>
 
 					<div class="content-form-grid-input">
-						<input type="text" name="url_link" placeholder="Link URL i.e Renaissance.com/topic..." maxlength="60" required>
+						<input type="text" name="url_link" placeholder="Link URL i.e Renaissance.com/topic..." maxlength="60"
+							{% if form.url_link.data %}
+								value="{{ form.url_link.data }}"
+							{% else %}
+								placeholder="Link URL i.e Renaissance.com/topic..."
+							{% endif %}
+							required
+						>
 						<span class="counter">60&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 					</div>
 
 					<div class="content-textarea-box">
-						<textarea type="text" name="meta_description" placeholder="Content Meta Description" maxlength="160" required></textarea>
+						{% if form.meta_description.data %}
+							<textarea type="text" name="meta_description" placeholder="Content Meta Description" maxlength="160" required>{{ form.meta_description.data }}</textarea>
+						{% else %}
+							<textarea type="text" name="meta_description" placeholder="Content Meta Description" maxlength="160" required></textarea>
+						{% endif %}
+
 						<span>160&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 					</div>
 
+
 					<div class="content-textarea-box">
-						<textarea type="text" name="keyword" placeholder="Content Keyword" maxlength="160"></textarea>
+						{% if form.keyword.data %}
+							<textarea type="text" name="keyword" placeholder="Content Keyword" maxlength="160" required>{{ form.keyword.data }}</textarea>
+						{% else %}
+							<textarea type="text" name="keyword" placeholder="Content Keyword" maxlength="160"></textarea>
+						{% endif %}
+						
 						<span>160&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 					</div>
 				</div>
 
 				<button class="form-footer-button" type="submit" name="submit">
-					<span>CREATE BLOG ARTICLE</span>
+					{% if 'renaissance/admin/auth/user/edit-destination' in request.url_rule.rule %}
+						<span>UPDATE DESTINATION</span>
+					{% else %}
+						<span>CREATE DESTINATION</span>
+					{% endif %}
 					<img class="form-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
 				</button>
 		</form>

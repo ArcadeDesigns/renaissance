@@ -5,9 +5,21 @@ from wtforms.widgets import TextArea
 from flask_ckeditor import CKEditorField
 from flask_wtf.file import FileField
 
+class PaymentForm(FlaskForm):
+    name = StringField(validators=[DataRequired()])
+    email = StringField(validators=[DataRequired()])
+
+    #Payment Content
+    title = StringField(validators=[DataRequired()])
+    location = StringField(validators=[DataRequired()])
+    country = StringField(validators=[DataRequired()])
+    cost = StringField(validators=[DataRequired()])
+    submit = SubmitField()
+
 class DestinationForm(FlaskForm):
     title = StringField(validators=[DataRequired()])
     location = StringField(validators=[DataRequired()])
+    country = StringField(validators=[DataRequired()])
     cost = StringField(validators=[DataRequired()])
     content = CKEditorField(validators=[DataRequired()])
     file = FileField()
