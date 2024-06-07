@@ -2098,7 +2098,7 @@ h1, h3, h4, h5, h6 {
   .form-container .login-form-image {
     height: 100%; 
   }
-  
+
   .contact-section-header .secondary-text {
     font-weight: 500;
   }
@@ -2139,6 +2139,14 @@ h1, h3, h4, h5, h6 {
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) and (max-width: 540px) {
+
+  .form-container-background {
+    padding: 10px;
+  }
+
+  .form-container-background form {
+    padding: 15px 10px;
+  }
   
   .secondary-blog-section-container {
     justify-content: center;
@@ -2147,6 +2155,14 @@ h1, h3, h4, h5, h6 {
     width: 100%;
     height: auto;
     display: flex;
+    flex-direction: column;
+  }
+
+  .login-form-header h2 {
+    font-size: var(--small-text);
+  }
+
+  .login-footer-btn-flex {
     flex-direction: column;
   }
 
