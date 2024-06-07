@@ -7,25 +7,17 @@
 			<div>Amount</div>
 		</div>
 
-		<div class="history-table-grid history-table-list">
-			<div>1.</div>
-			<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-			<div class="pending">Pending.</div>
-			<div>#54,000</div>
-		</div>
-
-		<div class="history-table-grid history-table-list">
-			<div>2.</div>
-			<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-			<div class="paid">Paid.</div>
-			<div>#34,000</div>
-		</div>
-
-		<div class="history-table-grid history-table-list">
-			<div>3.</div>
-			<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-			<div class="failed">Failed.</div>
-			<div>#40,000</div>
-		</div>
+		{% for history in historys %}
+			<div class="history-table-grid history-table-list">
+				<div>{{ history.id }}.</div>
+				<div>{{ history.destination_name }}</div>
+				{% if  history.payment_status == True %}
+					<div class="paid">Paid.</div>
+				{% else %}
+					<div class="pending">Pending.</div>
+				{% endif %}
+					<div>#{{ history.amount }}</div>
+			</div>
+		{% endfor %}
 	</div>
 </div>

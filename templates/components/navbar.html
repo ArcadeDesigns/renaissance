@@ -260,11 +260,11 @@
 		<div class="responsive-nav-view-content">
 			<ul>
 				<div class="close-responsive-nav-view"><img src="https://res.cloudinary.com/renaissance-images/image/upload/v1717697589/renaissance-images/Cancel_zgnfwt.png" alt="Renaissance Website Image"></div>
-				<li><a href="">HOME</a></li>
-				<li><a href="">ABOUT US</a></li>
-				<li><a href="">DESTINATION</a></li>
-				<li><a href="">CONTACT US</a></li>
-				<li><a href="">BLOG</a></li>
+				<li><a href="{{ url_for('index') }}">HOME</a></li>
+				<li><a href="{{ url_for('about') }}">ABOUT US</a></li>
+				<li><a href="{{ url_for('destination') }}">DESTINATION</a></li>
+				<li><a href="{{ url_for('contact') }}">CONTACT US</a></li>
+				<li><a href="{{ url_for('posts') }}">BLOG</a></li>
 				<!--<li><a href="">CREATE AN ACCOUNT</a></li>-->
 			</ul>
 		</div>

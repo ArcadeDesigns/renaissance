@@ -9,7 +9,7 @@
 				<img class="user-account-image" src="https://res.cloudinary.com/renaissance-images/image/upload/{{ current_user.profile_pic }}" alt="Renaissance Website Image">
 			{% else %}
 				<img class="user-account-image" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716996659/Renaissance/user_placeholder_image_w789tb_hfrja7.jpg" alt="Renaissance Website Image">
-				<a class="link-image" href=""><img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995814/Renaissance/Add_Image_1_kbdqz0.png" alt="Renaissance Website Image"></a>
+				<a class="link-image" href="{{ url_for ('update', id=current_user.id, name=current_user.email) }}"><img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995814/Renaissance/Add_Image_1_kbdqz0.png" alt="Renaissance Website Image"></a>
 			{% endif %}
 		</div>
 

@@ -500,10 +500,12 @@ def payment_callback():
 
 @app.route('/renaissance/dashboard/auth/user/history', methods=['GET', 'POST'])
 def history():
+    historys = Historys.query.order_by(Historys.id)
     return render_template('pages/history.html',
         title_tag="",
         meta_description="",
         keywords="",
+        historys=historys,
         url_link="https://www.renaissance.com/renaissance/dashboard/auth/user/account",
         revised="20th of May 2024",
     )

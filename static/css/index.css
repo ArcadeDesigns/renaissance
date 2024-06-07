@@ -1890,10 +1890,6 @@ body, html{
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
   }
 
-}
-
-@media screen and (-webkit-min-device-pixel-ratio:0) and (max-width: 430px) {
-
   .container-image-grid {
     justify-content: center;
     align-items: center;
