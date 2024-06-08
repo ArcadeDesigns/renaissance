@@ -536,51 +536,47 @@ def dashboard_blog():
 
 @app.route('/renaissance/dashboard/auth/user/account/destination/details/<int:id>', methods=['GET', 'POST'])
 def destination_details(id):
-    if current_user.is_authenticated:
-        form = PaymentForm()
-        if form.validate_on_submit():
-            client_name = request.form.get('name')
-            client_email = request.form.get('email')
+    form = PaymentForm()
+    if form.validate_on_submit():
+        client_name = request.form.get('name')
+        client_email = request.form.get('email')
 
-            # Payment Information
-            destination_name = request.form.get('title')
-            destination_location = request.form.get('location')
-            destination_country = request.form.get('country')
-            destination_cost = float(request.form.get('cost'))
-            paying = int(destination_cost * 100)
+        # Payment Information
+        destination_name = request.form.get('title')
+        destination_location = request.form.get('location')
+        destination_country = request.form.get('country')
+        destination_cost = float(request.form.get('cost'))
+        paying = int(destination_cost * 100)
 
-            headers = {
-                "Authorization": f"Bearer {PAYSTACK_SECRET_KEY}",
-                "Content-Type": "application/json"
+        headers = {
+            "Authorization": f"Bearer {PAYSTACK_SECRET_KEY}",
+            "Content-Type": "application/json"
+        }
+
+        payload = {
+            "email": client_email,
+            "amount": paying,
+            "callback_url": url_for('payment_callback', _external=True),
+            "metadata": {
+                "destination_name": destination_name
             }
+        }
 
-            payload = {
-                "email": client_email,
-                "amount": paying,
-                "callback_url": url_for('payment_callback', _external=True),
-                "metadata": {
-                    "destination_name": destination_name
-                }
-            }
+        try:
+            response = requests.post("https://api.paystack.co/transaction/initialize", headers=headers, json=payload)
+            response_data = response.json()
+            logging.info(f"Paystack response: {response_data}")
 
-            try:
-                response = requests.post("https://api.paystack.co/transaction/initialize", headers=headers, json=payload)
-                response_data = response.json()
-                logging.info(f"Paystack response: {response_data}")
-
-                if response.status_code == 200 and response_data['status']:
-                    authorization_url = response_data['data']['authorization_url']
-                    return redirect(authorization_url)
-                else:
-                    error_message = response_data.get('message', 'Unknown error')
-                    logging.error(f"Failed to initiate payment: {error_message}")
-                    flash(f"Failed to initiate payment: {error_message}", "danger")
-            except Exception as e:
-                logging.error(f"Exception during payment processing: {e}")
-                flash("An error occurred while processing your payment. Please contact admin.", "danger")
-    else:
-        flash("To proceed with bookings, please create an account. Sign up here.")
-        return redirect(url_for('add_user'))
+            if response.status_code == 200 and response_data['status']:
+                authorization_url = response_data['data']['authorization_url']
+                return redirect(authorization_url)
+            else:
+                error_message = response_data.get('message', 'Unknown error')
+                logging.error(f"Failed to initiate payment: {error_message}")
+                flash(f"Failed to initiate payment: {error_message}", "danger")
+        except Exception as e:
+            logging.error(f"Exception during payment processing: {e}")
+            flash("An error occurred while processing your payment. Please contact admin.", "danger")
     destination = Destinations.query.get(id)
     destinations = Destinations.query.order_by(Destinations.date_posted.desc())
     our_users = Users.query.order_by(Users.date_added.desc()).all()

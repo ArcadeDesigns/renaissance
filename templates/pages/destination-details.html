@@ -42,21 +42,28 @@
                     <label>BOOK A SPACE</label>
                     <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
                 </a>-->
-                <form method="POST">
-                    {{ form.hidden_tag() }}
-                    <input type="hidden" name="name" value="{{ current_user.last_name }} {{ current_user.first_name }} {{ current_user.middle_name }}">
-                    <input type="hidden" name="email" value="{{ current_user.email }}">
+                {% if current_user.is_authenticated %}
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        <input type="hidden" name="name" value="{{ current_user.last_name }} {{ current_user.first_name }} {{ current_user.middle_name }}">
+                        <input type="hidden" name="email" value="{{ current_user.email }}">
 
-                    <!--Payment Information-->
-                    <input type="hidden" name="title" value="{{ destination.title }}">
-                    <input type="hidden" name="location" value="{{ destination.location }}">
-                    <input type="hidden" name="country" value="{{ destination.country }}">
-                    <input type="hidden" name="cost" value="{{ destination.cost }}">
-                    <button class="black-general-button-container button-extra reveal__right">
-                        <label>BOOK A SPACE</label>
+                        <!--Payment Information-->
+                        <input type="hidden" name="title" value="{{ destination.title }}">
+                        <input type="hidden" name="location" value="{{ destination.location }}">
+                        <input type="hidden" name="country" value="{{ destination.country }}">
+                        <input type="hidden" name="cost" value="{{ destination.cost }}">
+                        <button class="black-general-button-container button-extra reveal__right">
+                            <label>BOOK A SPACE</label>
+                            <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="black-general-button-container reveal__right">
+                        <label>LOGIN TO BOOK A SPACE</label>
                         <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
-                    </button>
-                </form>
+                    </a>
+                {% endif %}
             </div>
         </div>
 
