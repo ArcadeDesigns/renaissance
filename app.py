@@ -510,11 +510,15 @@ def dashboard():
 def dashboard_destination():
     destinations = Destinations.query.order_by(Destinations.date_posted)
     our_users = Users.query.order_by(Users.date_added.desc()).all
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
     return render_template('dashboard/destination.html',
         title_tag="",
         meta_description="",
         keywords="",
         destinations=destinations,
+        terms=terms,
+        policys=policys,
         url_link="https://www.renaissance.com/renaissance/dashboard/auth/user/account/destination",
         revised="20th of May 2024",
         our_users=our_users,
@@ -524,11 +528,15 @@ def dashboard_destination():
 def dashboard_blog():
     blogs = Blogs.query.order_by(Blogs.date_posted)
     our_users = Users.query.order_by(Users.date_added.desc()).all
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
     return render_template('dashboard/blog.html',
         title_tag="",
         meta_description="",
         keywords="",
         blogs=blogs,
+        terms=terms,
+        policys=policys,
         url_link="https://www.renaissance.com/renaissance/dashboard/auth/user/account/blogs",
         revised="20th of May 2024",
         our_users=our_users,
