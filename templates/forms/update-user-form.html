@@ -109,7 +109,7 @@
 					<span>UPDATE ACCOUNT DETAILS</span>
 					<img class="form-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
 				</button>
-				{% if current_user == 1 %}
+				{% if current_user.id == 1 %}
 					<a href="{{ url_for ('delete', id=current_user.id, name=current_user.email) }}" class="form-footer-button-colored">
 						<span>DELETE ACCOUNT</span>
 						<img class="button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1717071219/Renaissance/Delete_qfdqle.png" alt="Renaissance Website Image">

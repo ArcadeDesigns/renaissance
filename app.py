@@ -250,9 +250,13 @@ def update(id):
             db.session.commit()
             flash("User Updated Successfully !")
             return redirect(url_for("update", id=id))
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
     return render_template("dashboard/account/update.html", form=form,
         name_to_update=name_to_update,
-        id=id or 1,)
+        id=id or 1,
+        terms=terms,
+        policys=policys)
 
 @app .route('/delete/<int:id>')
 @login_required
