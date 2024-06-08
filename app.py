@@ -491,6 +491,8 @@ def dashboard():
     historys = Historys.query.order_by(Historys.id)
     destinations = Destinations.query.order_by(Destinations.date_posted.desc())
     our_users = Users.query.order_by(Users.date_added.desc()).all
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
     return render_template('dashboard/dashboard.html',
         title_tag="",
         meta_description="",
@@ -500,6 +502,8 @@ def dashboard():
         historys=historys,
         destinations=destinations,
         our_users=our_users,
+        terms=terms,
+        policys=policys
     )
 
 @app.route('/renaissance/dashboard/auth/user/account/destination', methods=['GET', 'POST'])
@@ -742,12 +746,16 @@ def create_post():
         form.url_link.data = ''
         form.meta_description.data = ''
         form.keyword.data = ''
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
 
     return render_template('pages/create-blog.html',
         title_tag="",
         meta_description="",
         keywords="",
         form=form,
+        terms=terms,
+        policys=policys,
         url_link="https://www.renaissance.com/renaissance/renaissance/admin/auth/user/create-blog-post",
         revised="20th of May 2024",
     )
@@ -773,11 +781,16 @@ def edit_post(id):
         flash("Your blog post has been successfully updated!")
         return redirect(url_for("posts"))
 
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
+
     return render_template('pages/edit-blog.html',
         title_tag=title_tag,
         meta_description=meta_description,
         keywords=keyword,
         form=form,
+        terms=terms,
+        policys=policys,
         revised="20th of May 2024",
     )
 
@@ -867,11 +880,16 @@ def create_destination():
         form.meta_description.data = ''
         form.keyword.data = ''
 
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
+
     return render_template('pages/create-destination.html',
         title_tag="",
         meta_description="",
         keywords="",
         form=form,
+        terms=terms,
+        policys=policys,
         url_link="https://www.renaissance.com/renaissance/admin/auth/user/create-a-new-destination",
         revised="20th of May 2024",
     )
@@ -900,6 +918,8 @@ def edit_destination(id):
         flash("Your destination post has been successfully updated!")
         return redirect(url_for("destination"))
 
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
     return render_template('pages/edit-destination.html',
         title_tag=title_tag,
         meta_description=meta_description,
