@@ -252,7 +252,7 @@ def update(id):
             return redirect(url_for("update", id=id))
     return render_template("dashboard/account/update.html", form=form,
         name_to_update=name_to_update,
-        id=id or 1)
+        id=id or 1,)
 
 @app .route('/delete/<int:id>')
 @login_required
@@ -585,13 +585,16 @@ def destination_details(id):
     url_link = url_for('destination', id=destination.id, _external=True)
     keyword = destination.keyword
     meta_description = destination.meta_description
-
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
     return render_template('pages/destination-details.html',
         title_tag=title_tag,
         meta_description=meta_description,
         keywords=keyword,
         destination=destination,
         destinations=destinations,
+        terms=terms,
+        policys=policys,
         url_link="https://www.renaissance.com/renaissance/dashboard/auth/user/account/destination/details",
         revised="20th of May 2024",
         our_users=our_users,
@@ -644,11 +647,15 @@ def payment_callback():
 @app.route('/renaissance/dashboard/auth/user/history', methods=['GET', 'POST'])
 def history():
     historys = Historys.query.order_by(Historys.id)
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
     return render_template('pages/history.html',
         title_tag="",
         meta_description="",
         keywords="",
         historys=historys,
+        terms=terms,
+        policys=policys,
         url_link="https://www.renaissance.com/renaissance/dashboard/auth/user/account",
         revised="20th of May 2024",
     )
