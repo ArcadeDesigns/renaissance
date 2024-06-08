@@ -19,6 +19,7 @@ import uuid as uuid
 import os
 import requests
 import logging
+from mailjet_rest import Client
 
 # Cloudinary CDN Service
 import cloudinary
@@ -28,8 +29,8 @@ from cloudinary.utils import cloudinary_url
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///renaissance.db'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://renaissance_db_user:FFxRe3eeEDNNB2vQZ1s6X74MR8Pi6Ssy@dpg-cpdhdg5ds78s73eii6r0-a.oregon-postgres.render.com/renaissance_db'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///renaissance.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://renaissancetoursafrica_db_user:ExFpaEupvNeaBfpfUiFPpnrzQavAm3iB@dpg-cpi4miq1hbls73bc3eh0-a.oregon-postgres.render.com/renaissancetoursafrica_db'
 app.config['SECRET_KEY'] = "cairocoders-ednalan"
 app.config['FLASK_DEBUG'] = True
 
@@ -86,6 +87,27 @@ def allowed_file(filename):
 ### This section includes The Google Authentication, and Custom Email Login Structure ####
 ##########################################################################################
 ##########################################################################################
+
+@app.route('/renaissance-administrator/auth/access', methods=['GET', 'POST'])
+def administrator():
+    destinations = Destinations.query.order_by(Destinations.date_posted)
+    historys = Historys.query.order_by(Historys.id)
+    our_users = Users.query.order_by(Users.date_added)
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
+    return render_template('pages/administration.html',
+        title_tag="",
+        meta_description="",
+        keywords="",
+        terms=terms,
+        policys=policys,
+        our_users=our_users,
+        historys=historys,
+        destinations=destinations,
+        url_link="https://www.renaissance.com/renaissance-administrator/auth/access",
+        revised="20th of May 2024",
+    )
+
 
 @app.route('/renaissance/auth/google-callback')
 def google_callback():
@@ -176,7 +198,10 @@ def login():
         if user and check_password_hash(user.password_hash, form.password.data):
             login_user(user)
             flash("You have successfully logged in.")
-            return redirect(url_for('dashboard'))
+            if current_user.id == 1:
+                return redirect(url_for('administrator'))
+            else:
+                return redirect(url_for('dashboard'))
         else:
             flash("Invalid email or password. Please try again.")
     return render_template('authentication/login.html',
@@ -300,13 +325,126 @@ def destination():
 
 @app.route('/renaissance/secure-travels/contact-us', methods=['GET', 'POST'])
 def contact():
+    form = ContactForm()
+    if form.validate_on_submit():
+        sender_email = 'info@quinndaisies.com'
+        recipient_email = 'sid2284@gmail.com'
+        name = form.name.data
+        email = form.email.data
+        message = form.message.data
+
+        try:
+            api_key = '614f1d5db217f5a35c8ed583bbf4f09c'
+            api_secret = '118dec95ed600a827d6400f210f3a524'
+
+            # Renaissance Tours Africa APIs
+            #api_key = 'f2ee68f1ee98061359df748b4838a35a'
+            #api_secret = '6257f707079382e46bb698f85e4084be'
+            
+            mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+
+            data = {
+                'Messages': [
+                    {
+                        "From": {
+                            "Email": sender_email,
+                            "Name": "Renaissance Tours Africa Notification"
+                        },
+                        "To": [
+                            {
+                                "Email": recipient_email,
+                                "Name": "CEO Renaissance Tours Africa"
+                            }
+                        ],
+                        "Subject": "Message Notification for Renaissance Tours Africa",
+                        "TextPart": "",
+                        "HTMLPart": f'''<div style="width: 100%; height: 100%; justify-content: center; align-content: center; margin: auto; display: flex; padding: 2%;">
+                                            <div style="width: 100%; max-width: 600px; border-radius: 15px; overflow: hidden;  height: 100%; justify-content: center; align-content: center; margin: auto; display: block; position: relative;">
+                                                <div style=" width: 100%; height: 100%; justify-content: center; align-content: center; margin: auto; display: block; background-color: rgba(0, 0, 0, .8); position: absolute; top: 0; left: 0; padding: 2%;">
+                                                    <h2 style="color: #fff; font-size: 2.5em; font-weight: 700; text-align: center;">Renaissance Tours Africa</h2>
+                                                    <h3 style="color: #fff; font-size: 1.5em; font-weight: 700; text-align: center; padding-top: 5%;">New message from {email}</h3>
+                                                    <p style="color: #fff; font-size: 1em; font-weight: 500; text-align: center;">{message}</p>
+                                                </div>
+                                            </div>
+                                        </div>''',
+                        "CustomID": "AppGettingStartedTest"
+                    }
+                ]
+            }
+
+            result = mailjet.send.create(data=data)
+            
+            # Check if the request was successful (status code 2xx)
+            if result.status_code == 200:
+                flash("Thank you for reaching out. Your message has been successfully sent. We will promptly review your inquiry and get in touch with you at our earliest convenience.")
+                # Send an automated response
+                send_message(form)
+            else:
+                print(f"Failed to send the email. MailJet API response: {result.json()}")
+                flash("Failed to send the email.", 'danger')
+        except Exception as e:
+            print(f"Error occurred while sending the emails: {e}")
+            flash("Failed to send the email.", 'danger')
+
     return render_template('pages/contact.html',
         title_tag="",
         meta_description="",
         keywords="",
+        form=form,
         url_link="https://www.renaissance.com/renaissance/secure-travels/contact-us",
         revised="20th of May 2024",
     )
+
+def send_message(contact_form):
+    sender_email = 'info@quinndaisies.com'
+    subject = "Do not reply"
+    recipient_name = contact_form.name.data
+    recipient_email = contact_form.email.data
+
+    try:
+        api_key = '614f1d5db217f5a35c8ed583bbf4f09c'
+        api_secret = '118dec95ed600a827d6400f210f3a524'
+        
+        # Renaissance Tours Africa APIs
+        #api_key = 'f2ee68f1ee98061359df748b4838a35a'
+        #api_secret = '6257f707079382e46bb698f85e4084be'
+        
+        mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+
+        data = {
+            'Messages': [
+                {
+                    "From": {
+                        "Email": sender_email,
+                        "Name": "Renaissance Tours Africa"
+                    },
+                    "To": [
+                        {
+                            "Email": recipient_email,
+                            "Name": recipient_name
+                        }
+                    ],
+                    "Subject": subject,
+                    "TextPart": "",
+                    "HTMLPart": f'''<div style="width: 100%; height: 100%; justify-content: center; align-content: center; margin: auto; display: flex; padding: 2%;">
+                                        <div style="width: 100%; max-width: 600px; border-radius: 15px; overflow: hidden;  height: 100%; justify-content: center; align-content: center; margin: auto; display: block; position: relative;">
+                                            <div style=" width: 100%; height: 100%; justify-content: center; align-content: center; margin: auto; display: block; background-color: rgba(0, 0, 0, .8); position: absolute; top: 0; left: 0; padding: 2%;">
+                                                <h2 style="color: #fff; font-size: 2.5em; font-weight: 700; text-align: center;">Renaissance Tours Africa</h2>
+                                                <p style="color: #fff; font-size: 1em; font-weight: 500; text-align: center;">Thank you for contacting us. We have received your message and will respond promptly. We appreciate your patience.</p>
+                                            </div>
+                                        </div>
+                                    </div>''',
+                    "CustomID": "AppGettingStartedTest"
+                }
+            ]
+        }
+
+        result = mailjet.send.create(data=data)
+        # Check if the request was successful (status code 2xx)
+        if result.status_code != 200:
+            print(f"Failed to send the automated response. MailJet API response: {result.json()}")
+    except Exception as e:
+        print(f"Error occurred while sending the automated response: {e}")
 
 @app.route('/renaissance/travel-blog/tourism-articles', methods=['GET', 'POST'])
 def posts():
@@ -351,6 +489,7 @@ def post(id):
 @app.route('/renaissance/dashboard/auth/user/account', methods=['GET', 'POST'])
 def dashboard():
     historys = Historys.query.order_by(Historys.id)
+    destinations = Destinations.query.order_by(Destinations.date_posted.desc())
     our_users = Users.query.order_by(Users.date_added.desc()).all
     return render_template('dashboard/dashboard.html',
         title_tag="",
@@ -359,6 +498,7 @@ def dashboard():
         url_link="https://www.renaissance.com/renaissance/dashboard/auth/user/account",
         revised="20th of May 2024",
         historys=historys,
+        destinations=destinations,
         our_users=our_users,
     )
 
@@ -392,48 +532,51 @@ def dashboard_blog():
 
 @app.route('/renaissance/dashboard/auth/user/account/destination/details/<int:id>', methods=['GET', 'POST'])
 def destination_details(id):
-    form = PaymentForm()
-    if form.validate_on_submit():
-        client_name = request.form.get('name')
-        client_email = request.form.get('email')
+    if current_user.is_authenticated:
+        form = PaymentForm()
+        if form.validate_on_submit():
+            client_name = request.form.get('name')
+            client_email = request.form.get('email')
 
-        # Payment Information
-        destination_name = request.form.get('title')
-        destination_location = request.form.get('location')
-        destination_country = request.form.get('country')
-        destination_cost = float(request.form.get('cost'))
-        paying = int(destination_cost * 100)
+            # Payment Information
+            destination_name = request.form.get('title')
+            destination_location = request.form.get('location')
+            destination_country = request.form.get('country')
+            destination_cost = float(request.form.get('cost'))
+            paying = int(destination_cost * 100)
 
-        headers = {
-            "Authorization": f"Bearer {PAYSTACK_SECRET_KEY}",
-            "Content-Type": "application/json"
-        }
-
-        payload = {
-            "email": client_email,
-            "amount": paying,
-            "callback_url": url_for('payment_callback', _external=True),
-            "metadata": {
-                "destination_name": destination_name
+            headers = {
+                "Authorization": f"Bearer {PAYSTACK_SECRET_KEY}",
+                "Content-Type": "application/json"
             }
-        }
 
-        try:
-            response = requests.post("https://api.paystack.co/transaction/initialize", headers=headers, json=payload)
-            response_data = response.json()
-            logging.info(f"Paystack response: {response_data}")
+            payload = {
+                "email": client_email,
+                "amount": paying,
+                "callback_url": url_for('payment_callback', _external=True),
+                "metadata": {
+                    "destination_name": destination_name
+                }
+            }
 
-            if response.status_code == 200 and response_data['status']:
-                authorization_url = response_data['data']['authorization_url']
-                return redirect(authorization_url)
-            else:
-                error_message = response_data.get('message', 'Unknown error')
-                logging.error(f"Failed to initiate payment: {error_message}")
-                flash(f"Failed to initiate payment: {error_message}", "danger")
-        except Exception as e:
-            logging.error(f"Exception during payment processing: {e}")
-            flash("An error occurred while processing your payment. Please contact admin.", "danger")
+            try:
+                response = requests.post("https://api.paystack.co/transaction/initialize", headers=headers, json=payload)
+                response_data = response.json()
+                logging.info(f"Paystack response: {response_data}")
 
+                if response.status_code == 200 and response_data['status']:
+                    authorization_url = response_data['data']['authorization_url']
+                    return redirect(authorization_url)
+                else:
+                    error_message = response_data.get('message', 'Unknown error')
+                    logging.error(f"Failed to initiate payment: {error_message}")
+                    flash(f"Failed to initiate payment: {error_message}", "danger")
+            except Exception as e:
+                logging.error(f"Exception during payment processing: {e}")
+                flash("An error occurred while processing your payment. Please contact admin.", "danger")
+    else:
+        flash("To proceed with bookings, please create an account. Sign up here.")
+        return redirect(url_for('add_user'))
     destination = Destinations.query.get(id)
     destinations = Destinations.query.order_by(Destinations.date_posted.desc())
     our_users = Users.query.order_by(Users.date_added.desc()).all()
@@ -507,6 +650,30 @@ def history():
         keywords="",
         historys=historys,
         url_link="https://www.renaissance.com/renaissance/dashboard/auth/user/account",
+        revised="20th of May 2024",
+    )
+
+@app.route('/renaissance/terms-and-conditions', methods=['GET', 'POST'])
+def terms_conditions():
+    terms = Terms.query.order_by(Terms.id)
+    return render_template('pages/terms.html',
+        title_tag="",
+        meta_description="",
+        keywords="",
+        terms=terms,
+        url_link="https://www.renaissance.com/renaissance/terms-and-conditions",
+        revised="20th of May 2024",
+    )
+
+@app.route('/renaissance/privacy-policy', methods=['GET', 'POST'])
+def privacy_policy():
+    policys = Policys.query.order_by(Policys.id)
+    return render_template('pages/privacy-policy.html',
+        title_tag="",
+        meta_description="",
+        keywords="",
+        policys=policys,
+        url_link="https://www.renaissance.com/renaissance/privacy-policy",
         revised="20th of May 2024",
     )
 
@@ -769,6 +936,115 @@ def delete_destination(id):
         # Grab all the post from the DataBase
         destinations = Destinations.query.order_by(Destinations.date_posted)
         return redirect(url_for('posts', destinations=destinations))
+
+@app.route('/renaissance/admin/auth/user/create-terms-and-conditions', methods=['GET', 'POST'])
+@login_required
+def create_terms():   
+    form = TermsForm() 
+    if form.validate_on_submit():
+        poster = current_user.id
+        term = Terms(
+            content=form.content.data,
+        )
+
+        db.session.add(term)
+        db.session.commit()
+        flash("Dear Admin, the terms and conditions have been successfully created.")
+        return redirect(url_for("administrator"))
+
+        form.content.data = ''
+
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
+    return render_template('forms/terms-form.html',
+        title_tag="",
+        meta_description="",
+        keywords="",
+        form=form,
+        terms=terms,
+        policys=policys,
+        url_link="https://www.renaissance.com/renaissance/admin/auth/user/create-terms-and-conditions",
+        revised="20th of May 2024",
+    )
+
+@app.route('/renaissance/admin/auth/user/edit-terms-and-conditions/<int:id>', methods=['GET', 'POST'])
+def edit_terms(id): 
+    term = Terms.query.get_or_404(id)
+    form = TermsForm(obj=term) 
+
+    if form.validate_on_submit():
+        term.content = form.content.data
+        db.session.commit()
+
+        flash("Dear Admin, the terms and conditions have been successfully updated.")
+        return redirect(url_for("administrator"))
+    
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
+    return render_template('forms/terms-form.html',
+        title_tag="",
+        meta_description="",
+        keywords="",
+        form=form,
+        terms=terms,
+        policys=policys,
+        url_link="https://www.renaissance.com/renaissance/admin/auth/user/edit-terms-and-conditions/",
+        revised="20th of May 2024",
+    )
+
+@app.route('/renaissance/admin/auth/user/create-privacy-policy', methods=['GET', 'POST'])
+@login_required
+def create_privacy():   
+    form = PrivacyForm() 
+    if form.validate_on_submit():
+        policy = Policys(
+            content=form.content.data,
+        )
+
+        db.session.add(policy)
+        db.session.commit()
+        flash("Dear Admin, the privacy policy contents have been successfully created.")
+        return redirect(url_for("administrator"))
+
+        form.content.data = ''
+
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
+    return render_template('forms/privacy-form.html',
+        title_tag="",
+        meta_description="",
+        keywords="",
+        form=form,
+        terms=terms,
+        policys=policys,
+        url_link="https://www.renaissance.com/renaissance/admin/auth/user/create-privacy-policy",
+        revised="20th of May 2024",
+    )
+
+@app.route('/renaissance/admin/auth/user/edit-privacy-policy/<int:id>', methods=['GET', 'POST'])
+def edit_privacy(id): 
+    policy = Policys.query.get_or_404(id)
+    form = PrivacyForm(obj=policy) 
+
+    if form.validate_on_submit():
+        policy.content = form.content.data
+        db.session.commit()
+
+        flash("Dear Admin, the terms and conditions have been successfully upated your privacy policy.")
+        return redirect(url_for("administrator"))
+
+    terms = Terms.query.order_by(Terms.id)
+    policys = Policys.query.order_by(Policys.id)
+    return render_template('forms/privacy-form.html',
+        title_tag="",
+        meta_description="",
+        keywords="",
+        form=form,
+        terms=terms,
+        policys=policys,
+        url_link="https://www.renaissance.com/renaissance/admin/auth/user/edit-privacy-policy",
+        revised="20th of May 2024",
+    )
 
 ##########################################################################################
 ##########################################################################################

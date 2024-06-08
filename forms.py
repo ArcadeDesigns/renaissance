@@ -5,6 +5,20 @@ from wtforms.widgets import TextArea
 from flask_ckeditor import CKEditorField
 from flask_wtf.file import FileField
 
+class TermsForm(FlaskForm):
+    content = CKEditorField(validators=[DataRequired()])
+    submit = SubmitField()
+
+class PrivacyForm(FlaskForm):
+    content = CKEditorField(validators=[DataRequired()])
+    submit = SubmitField()
+
+class ContactForm(FlaskForm):
+    name = StringField(validators=[DataRequired()])
+    email = StringField(validators=[DataRequired()])
+    message = TextAreaField(validators=[DataRequired()])
+    submit = SubmitField()
+
 class PaymentForm(FlaskForm):
     name = StringField(validators=[DataRequired()])
     email = StringField(validators=[DataRequired()])

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'components/notification.html' %}
+<div class="dashboard-container">
+	{% include 'dashboard/components/navbar.html' %}
+	<div class="main-container">
+		<div class="content-management-form">
+			<form action="" method="POST" enctype="multipart/form-data">
+				{{ form.hidden_tag() }}
+					{% if 'renaissance/admin/auth/user/edit-terms-and-conditions' in request.url_rule.rule %}
+						<div style="padding: 2% 0;">
+							<span style="color: #fff; font-size: 1.5em; font-weight: 500;">Update Terms and Condition Content</span>
+						</div>
+					{% else %}
+						<div style="padding: 2% 0;">
+							<span style="color: #fff; font-size: 1.5em; font-weight: 500;">Create Terms and Condition Content</span>
+						</div>
+					{% endif %}
+
+					{{ form.content(class="form-control", rows="10") }}
+					&nbsp;&nbsp;
+					<button class="form-footer-button" type="submit" name="submit">
+						{% if 'renaissance/admin/auth/user/edit-terms-and-conditions' in request.url_rule.rule %}
+							<span>UPDATE CONTENT</span>
+						{% else %}
+							<span>CREATE CONTENT</span>
+						{% endif %}
+						<img class="form-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
+					</button>
+			</form>
+			{{ ckeditor.load() }} {{ ckeditor.config(name='content') }}
+		</div>
+	</div>
+	{% include 'dashboard/components/account.html' %}
+</div>
+{% endblock %}

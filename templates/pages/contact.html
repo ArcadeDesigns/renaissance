@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     {% include 'components/navbar.html' %}
-
+    {% include 'components/notification.html' %}
         <div class="about-container-header">
             <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716749986/Renaissance/1006_zbksfz.jpg" alt="Renaissance Website Image">
             <div class="about-container-header-content">
@@ -20,21 +20,22 @@
                 <span class="secondary-text reveal__right">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</span>
             </div>
 
-            <form class="reveal__bottom">
+            <form method="POST" class="reveal__bottom">
+                {{ form.hidden_tag() }}
                 <div class="input-box-container">
                     <span>COMMENTS/QUESTIONS</span>
-                    <textarea placeholder="Your Message Here"></textarea>
+                    <textarea placeholder="Your Message Here" name="message"></textarea>
                 </div>
 
                 <div class="input-box-container-flex">
                     <div class="input-box-container">
                         <span>NAME</span>
-                        <input type="" name="" placeholder="Your Name">
+                        <input type="text" name="name" placeholder="Your Name">
                     </div>
                     &nbsp;&nbsp;
                     <div class="input-box-container">
                         <span>EMAIL ADDRESS</span>
-                        <input type="" name="" Your Email Address>
+                        <input type="text" name="email" Your Email Address>
                     </div>
                 </div>
 

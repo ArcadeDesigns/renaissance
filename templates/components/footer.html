@@ -27,15 +27,15 @@
 			<h2>Pages</h2>
 			<div class="footer-list-container">
 				<li>
-					<a href="">About Us</a>
+					<a href="{{ url_for('about') }}">About Us</a>
 				</li>
 
 				<li>
-					<a href="">FAQ</a>
+					<a href="{{ url_for('destination') }}">Destination</a>
 				</li>
 
 				<li>
-					<a href="">Contact Us</a>
+					<a href="{{ url_for('contact') }}">Contact Us</a>
 				</li>
 				{% if current_user.is_authenticated %}
 					<li><a href=" {{ url_for ('dashboard') }} ">Dashboard</a></li>
@@ -49,15 +49,15 @@
 			<h2>Important Link</h2>
 			<div class="footer-list-container">
 				<li>
-					<a href="">Privacy Policy</a>
+					<a href="{{ url_for('privacy_policy') }}">Privacy Policy</a>
 				</li>
 
 				<li>
-					<a href="">Blog</a>
+					<a href="{{ url_for('posts') }}">Blog</a>
 				</li>
 
 				<li>
-					<a href="">Term & Condition</a>
+					<a href="{{ url_for('terms_conditions') }}">Term & Condition</a>
 				</li>
 			</div>
 		</div>

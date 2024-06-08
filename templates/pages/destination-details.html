@@ -42,7 +42,6 @@
                     <label>BOOK A SPACE</label>
                     <img class="black-general-button-arrow" src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716568463/Renaissance/Right_Arrow_1_uvdf61.png" alt="Renaissance Website Image">
                 </a>-->
-
                 <form method="POST">
                     {{ form.hidden_tag() }}
                     <input type="hidden" name="name" value="{{ current_user.last_name }} {{ current_user.first_name }} {{ current_user.middle_name }}">

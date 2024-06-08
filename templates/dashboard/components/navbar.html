@@ -1,21 +1,16 @@
 <div class="sidebar">
 	<div class="top-sidebar">
-		<a href="{{ url_for ('index') }}">
-			<span class="dashboard-text">Home</span>
-			<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914039/Renaissance/Equal_Housing_Opportunity_ymfmfa.png" alt="Renaissance Website Image">
-		</a>
-
-		<a href=" {{ url_for ('history') }} ">
-			<span class="dashboard-text">History</span>
-			<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914048/Renaissance/Activity_History_o1yd7k.png" alt="Renaissance Website Image">
-		</a>
-
-		<a href="{{ url_for ('dashboard') }}">
-			<span class="dashboard-text">Dashboard</span>
-			<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914059/Renaissance/Dashboard_Layout_ecshr2.png" alt="Renaissance Website Image">
-		</a>
-
 		{% if current_user.id == 1 %}
+			<a href="{{ url_for ('administrator') }}">
+				<span class="dashboard-text">Admin Page</span>
+				<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914039/Renaissance/Equal_Housing_Opportunity_ymfmfa.png" alt="Renaissance Website Image">
+			</a>
+
+			<a href=" {{ url_for ('history') }} ">
+				<span class="dashboard-text">History</span>
+				<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914048/Renaissance/Activity_History_o1yd7k.png" alt="Renaissance Website Image">
+			</a>
+
 			<a href="{{ url_for ('create_post') }}">
 				<span class="dashboard-text">Create Blog Post</span>
 				<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1717153063/Renaissance/Edit_gexktj.png" alt="Renaissance Website Image">
@@ -34,6 +29,54 @@
 			<a href="{{ url_for('dashboard_destination') }}">
 				<span class="dashboard-text">Destinations</span>
 				<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914069/Renaissance/Navigation_ajw3nn.png" alt="Renaissance Website Image">
+			</a>
+			{% for term in terms[0:1] %}
+				{% if term.content %}
+					<a href="{{ url_for('edit_terms', id=term.id) }}">
+						<span class="dashboard-text">Update Terms</span>
+						<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995820/Renaissance/Plus_am7or9.png" alt="Renaissance Website Image">
+					</a>
+				{% else %}
+					<a href="{{ url_for('create_terms') }}">
+						<span class="dashboard-text">Create Terms</span>
+						<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995820/Renaissance/Plus_am7or9.png" alt="Renaissance Website Image">
+					</a>
+				{% endif %}
+			{% else %}
+				<a href="{{ url_for('create_terms') }}">
+					<span class="dashboard-text">Create Terms</span>
+					<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995820/Renaissance/Plus_am7or9.png" alt="Renaissance Website Image">
+				</a>
+			{% endfor %}
+
+			{% for policy in policys[0:1] %}
+				{% if policy.content %}
+					<a href="{{ url_for('edit_privacy', id=policy.id) }}">
+						<span class="dashboard-text">Update Privacy Policy</span>
+						<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995820/Renaissance/Plus_am7or9.png" alt="Renaissance Website Image">
+					</a>
+				{% else %}
+					<a href="{{ url_for('create_privacy') }}">
+						<span class="dashboard-text">Create Privacy Policy</span>
+						<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995820/Renaissance/Plus_am7or9.png" alt="Renaissance Website Image">
+					</a>
+				{% endif %}
+			{% else %}
+				<a href="{{ url_for('create_privacy') }}">
+					<span class="dashboard-text">Create Privacy Policy</span>
+					<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716995820/Renaissance/Plus_am7or9.png" alt="Renaissance Website Image">
+				</a>
+			{% endfor %}
+
+		{% else %}
+			<a href="{{ url_for ('index') }}">
+				<span class="dashboard-text">Home</span>
+				<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914039/Renaissance/Equal_Housing_Opportunity_ymfmfa.png" alt="Renaissance Website Image">
+			</a>
+
+			<a href="{{ url_for ('dashboard') }}">
+				<span class="dashboard-text">Dashboard</span>
+				<img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716914059/Renaissance/Dashboard_Layout_ecshr2.png" alt="Renaissance Website Image">
 			</a>
 		{% endif %}
 	</div>
@@ -57,8 +100,16 @@
 			<div class="close-dashboard-responsiveness-nav-view"><img src="https://res.cloudinary.com/renaissance-images/image/upload/v1717697589/renaissance-images/Cancel_zgnfwt.png" alt="Renaissance Website Image"></div>
 
 			<li><a href="{{ url_for('index') }}">HOME</a></li>
-			<li><a href="{{ url_for('history') }}">HISTORY</a></li>
-			<li><a href="{{ url_for('dashboard') }}">DASHBOARD</a></li>
+			{% if current_user.id == 1 %}
+				<li><a href="{{ url_for('administrator') }}">ADMINISTRATOR</a></li>
+				<li><a href="{{ url_for('history') }}">HISTORY</a></li>
+				<li><a href="{{ url_for('create_post') }}">CREATE BLOG POST</a></li>
+				<li><a href="{{ url_for('dashboard_blog') }}">BLOGS</a></li>
+				<li><a href="{{ url_for('create_destination') }}">CREATE DESTINATION</a></li>
+				<li><a href="{{ url_for('dashboard_destination') }}">DESTINATIONS</a></li>
+			{% else %}
+				<li><a href="{{ url_for('dashboard') }}">DASHBOARD</a></li>
+			{% endif %}
 			<li><a href="{{ url_for ('update', id=current_user.id, name=current_user.email) }}">ACCOUNT SETTINGS</a></li>
 			<li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
 			<!--<li><a href="">CREATE AN ACCOUNT</a></li>-->

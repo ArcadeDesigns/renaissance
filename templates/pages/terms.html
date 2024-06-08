@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% include 'components/navbar.html' %}
+
+		<div class="about-container-header">
+            <img src="https://res.cloudinary.com/quinn-daisies/image/upload/v1716749986/Renaissance/1006_zbksfz.jpg" alt="Renaissance Website Image">
+            <div class="about-container-header-content">
+                <div class="about-container-header-content-span reveal__top">
+                    <span>Home</span>
+                    <span class="material-symbols-outlined">chevron_right</span>
+                    <span>Terms and Conditions</span>
+                </div>
+                <h2 class="reveal__bottom">Terms & <br> <span class="color-scheme reveal__text">Conditions</span></h2>
+            </div>
+        </div>
+
+		<div class="blog-post-content-container">
+			<div class="blog-post-content-header">
+				<h2>Renaissance Tours African Privacy Policy</h2>
+			</div>
+
+			<div class="blog-post-content-file">
+				{% for term in terms[0:1] %}
+					<p>{{ term.content | safe }}</p>
+				{% endfor %}
+			</div>
+		</div>
+	{% include 'components/footer.html' %}
+{% endblock %}

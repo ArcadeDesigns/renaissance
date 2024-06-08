@@ -2,6 +2,18 @@ from database import db
 from datetime import date, datetime
 from flask_login import UserMixin
 
+class Subscriptions(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    emails = db.Column(db.String(), nullable=False)
+
+class Terms(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+
+class Policys(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+
 class Historys(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     destination_name = db.Column(db.String(), nullable=False)
