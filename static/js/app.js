@@ -36,3 +36,38 @@ function scrollShadow() {
           responsiveMenu.classList.remove('active');
       });
   }
+
+function DropDownFunction() {
+    // Select all header elements
+    const headers = document.querySelectorAll('.drop-down-content-container-box-header');
+
+    headers.forEach(header => {
+        header.addEventListener('click', function() {
+            // Toggle the active class on the content
+            const content = this.nextElementSibling.nextElementSibling;
+            content.classList.toggle('active');
+
+            // Toggle the icons
+            const downIcon = this.querySelector('.drop-down-btn:nth-child(2)');
+            const upIcon = this.querySelector('.drop-down-btn:nth-child(3)');
+
+            downIcon.classList.toggle('active');
+            upIcon.classList.toggle('active');
+
+            // If there is another open content, close it
+            headers.forEach(otherHeader => {
+                if (otherHeader !== this) {
+                    const otherContent = otherHeader.nextElementSibling.nextElementSibling;
+                    const otherDownIcon = otherHeader.querySelector('.drop-down-btn:nth-child(2)');
+                    const otherUpIcon = otherHeader.querySelector('.drop-down-btn:nth-child(3)');
+                    
+                    if (otherContent.classList.contains('active')) {
+                        otherContent.classList.remove('active');
+                        otherDownIcon.classList.add('active');
+                        otherUpIcon.classList.remove('active');
+                    }
+                }
+            });
+        });
+    });
+};
